@@ -5,57 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gomberg&Associados</title>
-    
-<style>
-    body {
-        font-family: 'Times New Roman', Times, serif; /* Formal font */
-        margin: 0;
-        padding: 0;
-        background-image: url('background_image_for_index.png');
-        background-size: cover;
-        background-position: center;
-        color: #333;
-    }
-    .container {
-        max-width: 900px;
-        margin: 20px auto;
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    h1, h2, h3, h4, h5, h6 {
-        font-family: 'Georgia', serif; /* Elegant readable font for headings */
-        color: #222;
-    }
-    p, li, a {
-        font-family: 'Times New Roman', Times, serif; /* Clean readable font for paragraphs */
-        color: #444;
-        line-height: 1.6;
-    }
-    a {
-        text-decoration: none;
-        color: #000; /* Adjusted to black */
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-    .button {
-        padding: 10px 20px;
-        background: #000; /* Changed to black */
-        color: #fff;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        margin: 10px 5px;
-        display: inline-block;
-    }
-    .button:hover {
-        background: #333;
-    }
-</style>
-
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('background_image_for_index.png');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.8em;
+        }
+        .form-row input, .form-row textarea {
+            font-size: 1.1em;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button {
+            padding: 10px 20px;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px;
+            display: inline-block;
+        }
+        .button:hover {
+            background: #333;
+        }
+        .menu .button {
+            margin: 10px;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(240, 240, 240, 0.9);
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -86,10 +92,8 @@
         <div id="result-box" class="result-box" style="display: none;">
             <h3>Mensagem Gerada:</h3>
             <p id="result-content"></p>
-            <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
+            <a id="whatsapp-button" target="_blank" class="button">Falar com Advogado Agora via WhatsApp</a>
         </div>
-
-        <a href="https://wa.me/5511973383818" target="_blank" id="whatsapp-button" class="button">Falar com Advogado Agora via WhatsApp</a>
 
         <div class="menu">
             <a href="sobre_nos.html" class="button">Sobre Nós</a>
@@ -98,5 +102,49 @@
             <a href="area_vip.html" class="button">Área VIP</a>
         </div>
     </div>
+    <script>
+        const formFields = document.querySelectorAll("#user-form input, #user-form textarea");
+        const generateButton = document.getElementById("generate-message");
+        const resultContent = document.getElementById("result-content");
+        const resultBox = document.getElementById("result-box");
+        const whatsappButton = document.getElementById("whatsapp-button");
+
+        function checkFormCompletion() {
+            let allFilled = true;
+            formFields.forEach(function(field) {
+                if (!field.value.trim()) {
+                    allFilled = false;
+                }
+            });
+            generateButton.style.display = allFilled ? "inline-block" : "none";
+        }
+
+        formFields.forEach(function(field) {
+            field.addEventListener("input", checkFormCompletion);
+        });
+
+        generateButton.addEventListener("click", function() {
+            const nome = document.getElementById('nome').value;
+            const idade = document.getElementById('idade').value;
+            const telefone = document.getElementById('telefone').value;
+            const senha = document.getElementById('senha').value;
+            const processo = document.getElementById('processo').value;
+            const forum = document.getElementById('forum').value;
+            const vara = document.getElementById('vara').value;
+            const motivo = document.getElementById('motivo').value;
+
+            const mensagem = `
+                Senhor(a) ${nome}, de ${idade} anos, está em um processo localizado na vara ${vara || 'não especificada'} em ${forum || 'não especificado'}.
+                O motivo é: ${motivo}. 
+                Caso seja necessário, informe o número do processo: ${processo || 'Não informado'}.
+                Senha para consulta: ${senha || 'Não fornecida'}.
+                Telefone para contato: ${telefone}.
+            `;
+
+            resultContent.textContent = mensagem.trim();
+            whatsappButton.href = `https://wa.me/5511973383818?text=${encodeURIComponent(mensagem.trim())}`;
+            resultBox.style.display = "block";
+        });
+    </script>
 </body>
 </html>
