@@ -1,4 +1,6 @@
+# Updated HTML: Form inputs generate a formal message below and add a copy button
 
+html_with_message_generator = """
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -85,6 +87,21 @@
             background-color: #f9f9f9;
             border: 1px solid #ddd;
             border-radius: 5px;
+            position: relative;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #004aad;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .copy-button:hover {
+            background-color: #003580;
         }
     </style>
 </head>
@@ -111,12 +128,13 @@
             <div class="form-row">
                 <textarea id="resumo" name="resumo" placeholder="Faça um resumo do seu problema..." required></textarea>
             </div>
-            <button type="submit" class="button">Enviar Informações</button>
+            <button type="button" class="button" id="generate-message">Gerar Mensagem</button>
         </form>
 
         <div id="result-box" class="result-box" style="display: none;">
-            <h3>Informações Enviadas:</h3>
+            <h3>Mensagem Gerada:</h3>
             <p id="result-content"></p>
+            <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
         </div>
 
         <h3>Outras Opções</h3>
@@ -142,40 +160,47 @@
     </footer>
 
     <script>
-        document.getElementById('user-form').addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.target);
+        document.getElementById('generate-message').addEventListener('click', () => {
+            const nome = document.getElementById('nome').value;
+            const telefone = document.getElementById('telefone').value;
+            const processo = document.getElementById('processo').value;
+            const forum = document.getElementById('forum').value;
+            const vara = document.getElementById('vara').value;
+            const senha = document.getElementById('senha').value;
+            const resumo = document.getElementById('resumo').value;
 
-            const jsonData = {
-                nome: formData.get('nome'),
-                telefone: formData.get('telefone'),
-                processo: formData.get('processo'),
-                forum: formData.get('forum'),
-                vara: formData.get('vara'),
-                resumo: formData.get('resumo')
-            };
+            const mensagem = `
+                Nome: ${nome}
+                Telefone: ${telefone}
+                Número do Processo: ${processo || 'Não informado'}
+                Fórum: ${forum || 'Não informado'}
+                Vara: ${vara || 'Não informado'}
+                Senha: ${senha || 'Não informado'}
+                Resumo do Problema: ${resumo}
+            `;
 
-            try {
-                const response = await fetch('http://127.0.0.1:5000/send_email', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(jsonData)
-                });
-                if (response.ok) {
-                    const result = await response.json();
-                    document.getElementById('result-content').innerHTML = "Email enviado com sucesso!";
-                    document.getElementById('result-box').style.display = 'block';
-                } else {
-                    document.getElementById('result-content').innerHTML = "Erro no envio: " + response.statusText;
-                    document.getElementById('result-box').style.display = 'block';
-                }
-            } catch (error) {
-                document.getElementById('result-content').innerHTML = "Erro ao enviar os dados. Tente novamente mais tarde.";
-                document.getElementById('result-box').style.display = 'block';
-            }
+            document.getElementById('result-content').innerText = mensagem.trim();
+            document.getElementById('result-box').style.display = 'block';
         });
+
+        function copyToClipboard() {
+            const content = document.getElementById('result-content').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Mensagem copiada para a área de transferência!');
+            }).catch((err) => {
+                console.error('Erro ao copiar: ', err);
+            });
+        }
     </script>
 </body>
 </html>
+"""
+
+# Save the updated HTML with message generator
+file_path_message_generator = "/mnt/data/html_with_message_generator.html"
+
+with open(file_path_message_generator, "w") as file:
+    file.write(html_with_message_generator)
+
+# Provide the link to the updated file
+file_path_message_generator
