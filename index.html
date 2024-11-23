@@ -5,107 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gomberg&Associados</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url('background_image_for_index.png');
-            background-size: cover;
-            background-position: center;
-            color: #333;
-        }
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .button {
-            display: block;
-            margin: 10px auto;
-            padding: 10px 20px;
-            background: #004aad;
-            color: #fff;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            width: 50%;
-            display: none;
-        }
-        .button.show {
-            display: block;
-        }
-        .button:hover {
-            background: #003580;
-        }
-        .form-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .form-row input, .form-row textarea {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .form-row textarea {
-            flex: 2;
-        }
-        .result-box {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            position: relative;
-        }
-        .copy-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #004aad;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .copy-button:hover {
-            background-color: #003580;
-        }
-        .menu {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        .menu a {
-            padding: 10px 15px;
-            background: #004aad;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .menu a:hover {
-            background: #003580;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0, 74, 173, 0.9);
-            color: white;
-            margin-top: 20px;
-            border-radius: 10px 10px 0 0;
-        }
-    </style>
+    
+<style>
+    body {
+        font-family: 'Times New Roman', Times, serif; /* Formal font */
+        margin: 0;
+        padding: 0;
+        background-image: url('background_image_for_index.png');
+        background-size: cover;
+        background-position: center;
+        color: #333;
+    }
+    .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Georgia', serif; /* Elegant readable font for headings */
+        color: #222;
+    }
+    p, li, a {
+        font-family: 'Times New Roman', Times, serif; /* Clean readable font for paragraphs */
+        color: #444;
+        line-height: 1.6;
+    }
+    a {
+        text-decoration: none;
+        color: #000; /* Adjusted to black */
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    .button {
+        padding: 10px 20px;
+        background: #000; /* Changed to black */
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin: 10px 5px;
+        display: inline-block;
+    }
+    .button:hover {
+        background: #333;
+    }
+</style>
+
 </head>
 <body>
     <div class="container">
@@ -142,76 +92,11 @@
         <a href="https://wa.me/5511973383818" target="_blank" id="whatsapp-button" class="button">Falar com Advogado Agora via WhatsApp</a>
 
         <div class="menu">
-            <a href="sobre_nos.html">Sobre Nos</a>
-            <a href="historias.html">Historias</a>
-            <a href="https://www.oabsp.org.br/upload/1885288261.pdf" target="_blank">Tabela de Honorários da OAB</a>
-            <a href="area_vip.html">Área VIP</a>
+            <a href="sobre_nos.html" class="button">Sobre Nós</a>
+            <a href="historias.html" class="button">Histórias</a>
+            <a href="https://www.oabsp.org.br/upload/1885288261.pdf" target="_blank" class="button">Tabela de Honorários da OAB</a>
+            <a href="area_vip.html" class="button">Área VIP</a>
         </div>
     </div>
-    <footer>
-        <p>Contato: <a href="mailto:gomberg2010@hotmail.com" style="color: white;">gomberg2010@hotmail.com</a></p>
-        <p>WhatsApp: <a href="https://wa.me/5511973383818" style="color: white;">(11) 97338-3818</a></p>
-        <p>Redes Sociais: 
-            <a href="https://www.facebook.com/profile.php?id=100085688431397" style="color: white;">Facebook</a> | 
-            <a href="https://x.com/home?lang=pt-br" style="color: white;">X</a>
-        </p>
-    </footer>
-
-    <script>
-        const formFields = document.querySelectorAll("#user-form input, #user-form textarea");
-        const generateButton = document.getElementById("generate-message");
-        const whatsappButton = document.getElementById("whatsapp-button");
-
-        function checkFormCompletion() {
-            let allFilled = true;
-            formFields.forEach(field => {
-                if (!field.value.trim()) {
-                    allFilled = false;
-                }
-            });
-            if (allFilled) {
-                generateButton.classList.add("show");
-                whatsappButton.classList.add("show");
-            } else {
-                generateButton.classList.remove("show");
-                whatsappButton.classList.remove("show");
-            }
-        }
-
-        formFields.forEach(field => {
-            field.addEventListener("input", checkFormCompletion);
-        });
-
-        generateButton.addEventListener("click", () => {
-            const nome = document.getElementById('nome').value;
-            const idade = document.getElementById('idade').value;
-            const telefone = document.getElementById('telefone').value;
-            const senha = document.getElementById('senha').value;
-            const processo = document.getElementById('processo').value;
-            const forum = document.getElementById('forum').value;
-            const vara = document.getElementById('vara').value;
-            const motivo = document.getElementById('motivo').value;
-
-            const mensagem = `
-                Senhor(a) ${nome}, de ${idade} anos, está em um processo localizado na vara ${vara || 'não especificada'} em ${forum || 'não especificado'}.
-                O motivo é: ${motivo}. 
-                Caso seja necessário, informe o número do processo: ${processo || 'Não informado'}.
-                Senha para consulta: ${senha || 'Não fornecida'}.
-                Telefone para contato: ${telefone}.
-            `;
-
-            document.getElementById('result-content').innerText = mensagem.trim();
-            document.getElementById('result-box').style.display = 'block';
-        });
-
-        function copyToClipboard() {
-            const content = document.getElementById('result-content').innerText;
-            navigator.clipboard.writeText(content).then(() => {
-                alert('Mensagem copiada para a área de transferência!');
-            }).catch((err) => {
-                console.error('Erro ao copiar: ', err);
-            });
-        }
-    </script>
 </body>
 </html>

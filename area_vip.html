@@ -8,7 +8,7 @@
     
 <style>
     body {
-        font-family: 'Arial', sans-serif; /* Default updated */
+        font-family: 'Times New Roman', Times, serif; /* Formal font */
         margin: 0;
         padding: 0;
         background-image: url('background_image_for_index.png');
@@ -29,16 +29,30 @@
         color: #222;
     }
     p, li, a {
-        font-family: 'Verdana', sans-serif; /* Clean readable font for paragraphs */
+        font-family: 'Times New Roman', Times, serif; /* Clean readable font for paragraphs */
         color: #444;
         line-height: 1.6;
     }
     a {
         text-decoration: none;
-        color: #004aad;
+        color: #000; /* Adjusted to black */
     }
     a:hover {
         text-decoration: underline;
+    }
+    .button {
+        padding: 10px 20px;
+        background: #000; /* Changed to black */
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin: 10px 5px;
+        display: inline-block;
+    }
+    .button:hover {
+        background: #333;
     }
 </style>
 
@@ -68,7 +82,7 @@
             </ul>
         </div>
 
-        <a href="index.html" style="display: inline-block; margin-top: 20px; color: #004aad;">Voltar à página principal</a>
+        <a href="index.html" class="button">Voltar à página principal</a>
     </div>
 </body>
 </html>
