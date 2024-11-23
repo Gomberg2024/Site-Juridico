@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gomberg&Associados - Advocacia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFA500; /* Fundo laranja */
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .highlight {
+            font-size: 18px;
+            font-weight: bold;
+            color: #004aad;
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #004aad;
+            border-radius: 5px;
+            background-color: #e6f3ff;
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .form-row input, .form-row textarea {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-row textarea {
+            flex: 2;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 10px 20px 0;
+            background: #004aad;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .button:hover {
+            background: #003580;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #004aad;
+            color: white;
+            margin-top: 20px;
+            border-radius: 10px 10px 0 0;
+        }
+        .social-links {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .social-links a {
+            margin: 0 10px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">Gomberg&Associados - Advocacia</h1>
+        <div class="highlight">
+            "Na dúvida, procure um advogado, este seguirá para o caminho a se fazer justiça."
+        </div>
+        <h2>Seja bem-vindo!</h2>
+        <form id="user-form">
+            <div class="form-row">
+                <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                <input type="tel" id="telefone" name="telefone" placeholder="(DDD) XXXXX-XXXX" required>
+            </div>
+            <div class="form-row">
+                <input type="text" id="processo" name="processo" placeholder="Número do processo (se houver)">
+                <input type="text" id="forum" name="forum" placeholder="Fórum">
+                <input type="text" id="vara" name="vara" placeholder="Vara">
+            </div>
+            <div class="form-row">
+                <input type="password" id="senha" name="senha" placeholder="Senha (caso esteja em segredo de justiça)">
+            </div>
+            <div class="form-row">
+                <textarea id="resumo" name="resumo" placeholder="Faça um resumo do seu problema..." required></textarea>
+            </div>
+            <button type="submit" class="button">Enviar Informações</button>
+        </form>
+
+        <div id="result-box" class="result-box" style="display: none;">
+            <h3>Informações Enviadas:</h3>
+            <p id="result-content"></p>
+        </div>
+
+        <h3>Outras Opções</h3>
+        <a href="https://wa.me/5511973383818" class="button" target="_blank">Falar com Advogado Agora</a>
+        <a href="/sobre_nos" class="button">Sobre Nós</a>
+        <a href="/notificacoes" class="button">Notificações e Lembretes</a>
+        <a href="https://www.oabsp.org.br/upload/1885288261.pdf" class="button" target="_blank">Tabela de Honorários da OAB</a>
+        <a href="/upload" class="button">Upload de Documentos</a>
+        <a href="/plano_ouro" class="button">Plano Ouro</a>
+        <a href="/plano_diamante" class="button">Plano Diamante</a>
+        <a href="/vip_login" class="button">Área VIP - Login</a>
+        <a href="/historias" class="button">Histórias</a>
+        <a href="/feedback" class="button">Feedback de Usuários</a>
+    </div>
+
+    <footer>
+        <p>Contato: <a href="mailto:gomberg2010@hotmail.com" style="color: white;">gomberg2010@hotmail.com</a></p>
+        <p>WhatsApp: <a href="https://wa.me/5511973383818" style="color: white;">(11) 97338-3818</a></p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=100085688431397" target="_blank">Facebook</a> |
+            <a href="https://x.com/home?lang=pt-br" target="_blank">X</a>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('user-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+
+            // Collect data to display
+            const resultContent = `
+                Nome: ${formData.get('nome')}<br>
+                Telefone: ${formData.get('telefone')}<br>
+                Número do Processo: ${formData.get('processo')}<br>
+                Fórum: ${formData.get('forum')}<br>
+                Vara: ${formData.get('vara')}<br>
+                Resumo do Problema: ${formData.get('resumo')}
+            `;
+
+            // Display in result box
+            document.getElementById('result-content').innerHTML = resultContent;
+            document.getElementById('result-box').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
