@@ -20,6 +20,7 @@
             background: #fff;
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
         .button {
             display: block;
@@ -32,6 +33,10 @@
             border-radius: 5px;
             font-weight: bold;
             width: 50%;
+            display: none;
+        }
+        .button.show {
+            display: block;
         }
         .button:hover {
             background: #003580;
@@ -87,7 +92,7 @@
     <div class="container">
         <h1>Gomberg&Associados</h1>
         <h2>Bem-vindo!</h2>
-        <p>Por favor, preencha as informações iniciais abaixo para gerar sua mensagem:</p>
+        <p>Por favor, complete o formulário abaixo para enviar ao advogado:</p>
 
         <form id="user-form">
             <div class="form-row">
@@ -115,7 +120,7 @@
             <button class="copy-button" onclick="copyToClipboard()">Copiar</button>
         </div>
 
-        <a href="https://wa.me/5511973383818" class="button">Falar com Advogado Agora via WhatsApp</a>
+        <a href="https://wa.me/5511973383818" id="whatsapp-button" class="button">Falar com Advogado Agora via WhatsApp</a>
 
         <h3>Explore outras opções:</h3>
         <a href="sobre_nos.html" class="button">Sobre Nós</a>
@@ -133,7 +138,31 @@
     </footer>
 
     <script>
-        document.getElementById('generate-message').addEventListener('click', () => {
+        const formFields = document.querySelectorAll("#user-form input, #user-form textarea");
+        const generateButton = document.getElementById("generate-message");
+        const whatsappButton = document.getElementById("whatsapp-button");
+
+        function checkFormCompletion() {
+            let allFilled = true;
+            formFields.forEach(field => {
+                if (!field.value.trim()) {
+                    allFilled = false;
+                }
+            });
+            if (allFilled) {
+                generateButton.classList.add("show");
+                whatsappButton.classList.add("show");
+            } else {
+                generateButton.classList.remove("show");
+                whatsappButton.classList.remove("show");
+            }
+        }
+
+        formFields.forEach(field => {
+            field.addEventListener("input", checkFormCompletion);
+        });
+
+        generateButton.addEventListener("click", () => {
             const nome = document.getElementById('nome').value;
             const idade = document.getElementById('idade').value;
             const telefone = document.getElementById('telefone').value;
