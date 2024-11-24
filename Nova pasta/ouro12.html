@@ -1,0 +1,124 @@
+
+# Criando o conteúdo interno atualizado para o Plano Ouro com exemplo de relatórios e suporte
+planos_ouro_content_with_data = """
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano Ouro - Conteúdo Interno</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background-color: #ffd700;
+            color: #000;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        header h2 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-buttons a {
+            text-decoration: none;
+            padding: 10px 15px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .nav-buttons a:hover {
+            background-color: #555;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .content p {
+            line-height: 1.6;
+        }
+        .reports-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .reports-section li {
+            margin-bottom: 10px;
+        }
+        .reports-section a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .reports-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Plano Ouro - Conteúdo Exclusivo</h1>
+            <h2>Bem-vindo(a), [Nome do Cliente]!</h2>
+        </div>
+        <div class="nav-buttons">
+            <a href="vip.html">Voltar para Área VIP</a>
+            <a href="configuracoes.html">Login e Senha</a>
+            <a href="logout.html">Sair</a>
+        </div>
+    </header>
+    <div class="content">
+        <h3>Seu Acesso Exclusivo</h3>
+        <p>Esta é a área exclusiva do Plano Ouro. Aqui você encontrará:</p>
+        <ul>
+            <li>Relatórios personalizados.</li>
+            <li>Suporte prioritário.</li>
+            <li>Conteúdos jurídicos exclusivos.</li>
+        </ul>
+
+        <div class="reports-section">
+            <h3>Relatórios Disponíveis</h3>
+            <ul>
+                <li><a href="relatorio_janeiro.pdf" target="_blank">Relatório Janeiro 2024</a></li>
+                <li><a href="relatorio_fevereiro.pdf" target="_blank">Relatório Fevereiro 2024</a></li>
+                <li><a href="relatorio_marco.pdf" target="_blank">Relatório Março 2024</a></li>
+            </ul>
+        </div>
+
+        <div class="support-section">
+            <h3>Suporte Prioritário</h3>
+            <p>Envie suas dúvidas diretamente para o suporte:</p>
+            <form action="mailto:suporte@gombergassociados.com" method="post">
+                <label for="mensagem">Sua Mensagem:</label><br>
+                <textarea id="mensagem" name="mensagem" rows="4" cols="50" placeholder="Escreva sua mensagem aqui..." required></textarea><br><br>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+"""
+
+# Salvando o conteúdo interno atualizado no arquivo planos_ouro.html
+planos_ouro_internal_path = "/mnt/data/planos_ouro_internal_content.html"
+with open(planos_ouro_internal_path, "w") as f:
+    f.write(planos_ouro_content_with_data.strip())
+
+planos_ouro_internal_path

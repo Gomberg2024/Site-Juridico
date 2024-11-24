@@ -24,7 +24,7 @@
         }
 
         button {
-            margin-top: 20px;
+            margin-top: 10px;
             padding: 10px 20px;
             background-color: #333;
             color: white;
@@ -56,9 +56,34 @@
         label[for="fileUpload"]:hover {
             background-color: #555;
         }
+
+        #uploadedFiles {
+            margin-top: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #uploadedFiles li {
+            margin: 5px 0;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #uploadedFiles li button {
+            margin-left: 10px;
+            padding: 5px 10px;
+        }
+
+        #noteSection {
+            margin-top: 20px;
+        }
     </style>
 </head>
-<body contenteditable="true">
+<body>
     <h1>Planilha Editável</h1>
     <table>
         <tr>
@@ -77,43 +102,155 @@
             <td>Dados 6</td>
         </tr>
     </table>
+
     <div class="button-container">
+        <button onclick="goBack()">Voltar</button>
         <label for="fileUpload">Upload de Documento</label>
         <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.txt,.xlsx">
         <button onclick="saveChanges()">Salvar Alterações</button>
         <button onclick="cancelChanges()">Cancelar</button>
     </div>
 
-    <script>
-        let originalContent = document.body.innerHTML;
+    <ul id="uploadedFiles"></ul>
 
+    <div id="noteSection">
+        <h2>Bloco de Notas</h2>
+        <textarea id="notes" rows="10" cols="50" placeholder="Escreva suas anotações aqui..."></textarea>
+        <div>
+            <button onclick="saveNotes()">Salvar Notas</button>
+            <button onclick="clearNotes()">Excluir Notas</button>
+        </div>
+        <div id="savedNotes">
+            <h3>Notas Salvas</h3>
+            <ul id="notesList" style="list-style-type: none; padding: 0;"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Botão de voltar
+        function goBack() {
+            window.history.back();
+        }
+
+        // Upload de arquivo
+        const maxFiles = 20;
+        let uploadedFiles = [];
+
+        document.getElementById('fileUpload').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (uploadedFiles.length >= maxFiles) {
+                alert('Você atingiu o limite máximo de 20 documentos.');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const fileEntry = {
+                    name: file.name,
+                    content: e.target.result, // Conteúdo em Base64
+                };
+
+                uploadedFiles.push(fileEntry);
+                saveUploadedFiles();
+                displayUploadedFiles();
+            };
+            reader.readAsDataURL(file); // Ler o arquivo
+        });
+
+        function saveUploadedFiles() {
+            localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+        }
+
+        function loadUploadedFiles() {
+            const savedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+            uploadedFiles = savedFiles;
+            displayUploadedFiles();
+        }
+
+        function displayUploadedFiles() {
+            const fileList = document.getElementById('uploadedFiles');
+            fileList.innerHTML = '';
+
+            uploadedFiles.forEach((file, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    ${file.name}
+                    <div>
+                        <button onclick="openFile('${file.content}')">Abrir</button>
+                        <button onclick="removeFile(${index})">Remover</button>
+                    </div>
+                `;
+                fileList.appendChild(li);
+            });
+        }
+
+        function openFile(fileContent) {
+            const newWindow = window.open();
+            newWindow.document.write(`
+                <iframe src="${fileContent}" frameborder="0" style="width:100%; height:100%;"></iframe>
+            `);
+        }
+
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            saveUploadedFiles();
+            displayUploadedFiles();
+        }
+
+        // Salvar alterações na página
         function saveChanges() {
             const content = document.body.innerHTML;
             localStorage.setItem('editablePage', content);
             alert('Alterações salvas com sucesso!');
         }
 
+        // Cancelar alterações
         function cancelChanges() {
             if (confirm('Tem certeza de que deseja cancelar as alterações? Isso irá reverter para o último estado salvo.')) {
-                document.body.innerHTML = originalContent;
+                document.body.innerHTML = localStorage.getItem('editablePage') || '';
             }
         }
 
-        // Carregar conteúdo salvo
-        window.onload = function() {
-            const savedContent = localStorage.getItem('editablePage');
-            if (savedContent) {
-                document.body.innerHTML = savedContent;
+        // Bloco de Notas
+        function saveNotes() {
+            const noteText = document.getElementById('notes').value.trim();
+            if (!noteText) {
+                alert('Por favor, escreva algo antes de salvar.');
+                return;
+            }
+
+            const noteList = document.getElementById('notesList');
+            const noteItem = document.createElement('li');
+            noteItem.textContent = noteText;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Excluir';
+            deleteButton.onclick = function () {
+                noteList.removeChild(noteItem);
+            };
+
+            noteItem.appendChild(deleteButton);
+            noteList.appendChild(noteItem);
+
+            document.getElementById('notes').value = '';
+        }
+
+        function clearNotes() {
+            if (confirm('Tem certeza de que deseja excluir todas as notas?')) {
+                document.getElementById('notesList').innerHTML = '';
             }
         }
 
-        // Upload de arquivo
-        document.getElementById('fileUpload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                alert(`Arquivo "${file.name}" carregado com sucesso.`);
+        // Carregar conteúdo salvo ao iniciar
+        window.onload = function () {
+            try {
+                loadUploadedFiles();
+            } catch (e) {
+                console.error('Erro ao carregar arquivos:', e);
             }
-        });
+        };
     </script>
 </body>
 </html>
