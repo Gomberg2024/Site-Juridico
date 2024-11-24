@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planilha Editável</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Planilha Editável</h1>
+    <table contenteditable="true">
+        <tr>
+            <th>Coluna 1</th>
+            <th>Coluna 2</th>
+            <th>Coluna 3</th>
+        </tr>
+        <tr>
+            <td>Dados 1</td>
+            <td>Dados 2</td>
+            <td>Dados 3</td>
+        </tr>
+        <tr>
+            <td>Dados 4</td>
+            <td>Dados 5</td>
+            <td>Dados 6</td>
+        </tr>
+    </table>
+    <button onclick="saveChanges()">Salvar Alterações</button>
+
+    <script>
+        function saveChanges() {
+            const table = document.querySelector('table').outerHTML;
+            localStorage.setItem('savedTable', table);
+            alert('Alterações salvas com sucesso!');
+        }
+
+        // Carregar a tabela salva, se existir
+        window.onload = function() {
+            const savedTable = localStorage.getItem('savedTable');
+            if (savedTable) {
+                document.querySelector('table').outerHTML = savedTable;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,58 +1,175 @@
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Plano Ouro</title>
+    <title>Plano Ouro - Conteúdo Exclusivo</title>
     <style>
-        body {
+        /* Estilo do cabeçalho */
+        header {
+            background-color: #ffd700; /* Cor amarelo ouro */
+            color: black;
+            padding: 10px;
+            text-align: left;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            height: 100vh;
         }
-        .login-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
+
+        header h1 {
+            margin: 0;
         }
-        .login-container h1 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .login-container label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-        }
-        .login-container input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .login-container button {
-            width: 100%;
+
+        header button {
             background-color: #333;
-            color: #fff;
-            padding: 10px;
+            color: white;
             border: none;
-            border-radius: 5px;
+            padding: 8px 12px;
+            margin: 0 5px;
             cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
         }
-        .login-container button:hover {
+
+        header button:hover {
             background-color: #555;
         }
-        .login-container .forgot-password {
-            display: block;
-            margin-
+
+        /* Estilo do modal de login */
+        #loginModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            z-index: 1000;
+            width: 300px;
+        }
+
+        #loginModal h3 {
+            margin-top: 0;
+        }
+
+        #loginModal input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #loginModal button {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #loginModal button:hover {
+            background-color: #555;
+        }
+
+        #loginModal .forgot-password {
+            background-color: transparent;
+            color: #007BFF;
+            border: none;
+            text-align: left;
+            padding: 0;
+            margin-top: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #loginModal .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Fundo escuro para modal */
+        #modalBackground {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Plano Ouro - Conteúdo Exclusivo</h1>
+        <div>
+            <button onclick="alert('Voltando para a Área VIP')">Voltar para Área VIP</button>
+            <button onclick="showLoginModal()">Login e Senha</button>
+            <button onclick="alert('Você saiu com sucesso!')">Sair</button>
+        </div>
+    </header>
+    <main>
+        <h2>Seu Acesso Exclusivo</h2>
+        <p>Esta é a área exclusiva do Plano Ouro. Aqui você encontrará:</p>
+        <ul>
+            <li>Relatórios personalizados.</li>
+            <li>Suporte prioritário.</li>
+            <li>Conteúdos jurídicos exclusivos.</li>
+        </ul>
+    </main>
+
+    <!-- Modal de Login -->
+    <div id="modalBackground"></div>
+    <div id="loginModal">
+        <h3>Acesso Restrito</h3>
+        <form id="loginForm">
+            <label for="username">CPF:</label>
+            <input type="text" id="username" name="username" placeholder="Digite seu CPF" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <button class="forgot-password" onclick="forgotPassword()">Esqueci minha senha</button>
+        <button onclick="closeLoginModal()">Cancelar</button>
+    </div>
+
+    <script>
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+            document.getElementById('modalBackground').style.display = 'block';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('modalBackground').style.display = 'none';
+        }
+
+        function forgotPassword() {
+            alert('Entre em contato com o suporte para redefinir sua senha.');
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value.replace(/[\.\-]/g, ''); // Remove pontos e traços do CPF
+            const password = document.getElementById('password').value;
+
+            const validUsername = '12345678900';
+            const validPassword = 'teste123';
+
+            if (username === validUsername && password === validPassword) {
+                window.location.href = 'planilha.html'; // Redirecionar para a planilha
+            } else {
+                alert('CPF ou senha incorretos. Tente novamente.');
+            }
+        });
+    </script>
+</body>
+</html>
