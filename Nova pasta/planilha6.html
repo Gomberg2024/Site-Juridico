@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+   <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -79,24 +80,11 @@
         }
 
         #noteSection {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        #notesList {
-            list-style-type: none;
-            padding: 0;
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 4px;
+            margin-top: 20px;
         }
     </style>
 </head>
-<body>
+<body contenteditable="true">
     <h1>Planilha Editável</h1>
     <table>
         <tr>
@@ -119,7 +107,7 @@
     <div class="button-container">
         <button onclick="goBack()">Voltar</button>
         <label for="fileUpload">Upload de Documento</label>
-        <input type="file" id="fileUpload" accept="*/*">
+        <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.txt,.xlsx">
         <button onclick="saveChanges()">Salvar Alterações</button>
         <button onclick="cancelChanges()">Cancelar</button>
     </div>
@@ -127,29 +115,50 @@
     <ul id="uploadedFiles"></ul>
 
     <div id="noteSection">
+        <h2>Bloco de Notas</h2>
+        <textarea id="notes" rows="10" cols="50" placeholder="Escreva suas anotações aqui..."></textarea>
         <div>
-            <h2>Bloco de Notas</h2>
-            <textarea id="notes" rows="10" cols="50" placeholder="Escreva suas anotações aqui..."></textarea>
-            <div>
-                <button onclick="saveNotes()">Salvar Notas</button>
-                <button onclick="clearNotes()">Excluir Todas as Notas</button>
-            </div>
-        </div>
-        <div>
-            <h3>Notas Salvas</h3>
-            <ul id="notesList"></ul>
+            <button onclick="saveNotes()">Salvar Notas</button>
+            <button onclick="clearNotes()">Excluir Notas</button>
         </div>
     </div>
 
     <script>
+        let originalContent = document.body.innerHTML;
+
         // Botão de voltar
         function goBack() {
             window.history.back();
         }
 
+        // Salvar alterações na página
+        function saveChanges() {
+            const content = document.body.innerHTML;
+            localStorage.setItem('editablePage', content);
+            alert('Alterações salvas com sucesso!');
+        }
+
+        // Cancelar alterações e restaurar conteúdo original
+        function cancelChanges() {
+            if (confirm('Tem certeza de que deseja cancelar as alterações? Isso irá reverter para o último estado salvo.')) {
+                document.body.innerHTML = originalContent;
+            }
+        }
+
+        // Carregar conteúdo salvo
+        window.onload = function () {
+            const savedContent = localStorage.getItem('editablePage');
+            if (savedContent) {
+                document.body.innerHTML = savedContent;
+            }
+
+            loadUploadedFiles();
+            loadNotes();
+        }
+
         // Upload de arquivo
         const maxFiles = 20;
-        let uploadedFiles = [];
+        const uploadedFiles = [];
 
         document.getElementById('fileUpload').addEventListener('change', function (event) {
             const file = event.target.files[0];
@@ -160,18 +169,14 @@
                 return;
             }
 
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const fileEntry = {
-                    name: file.name,
-                    content: e.target.result, // Conteúdo em Base64
-                };
-
-                uploadedFiles.push(fileEntry);
-                saveUploadedFiles();
-                displayUploadedFiles();
+            const fileEntry = {
+                name: file.name,
+                content: URL.createObjectURL(file),
             };
-            reader.readAsDataURL(file); // Ler o arquivo
+
+            uploadedFiles.push(fileEntry);
+            saveUploadedFiles();
+            displayUploadedFiles();
         });
 
         function saveUploadedFiles() {
@@ -180,7 +185,7 @@
 
         function loadUploadedFiles() {
             const savedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
-            uploadedFiles = savedFiles;
+            uploadedFiles.push(...savedFiles);
             displayUploadedFiles();
         }
 
@@ -201,11 +206,8 @@
             });
         }
 
-        function openFile(fileContent) {
-            const newWindow = window.open();
-            newWindow.document.write(`
-                <iframe src="${fileContent}" frameborder="0" style="width:100%; height:100%;"></iframe>
-            `);
+        function openFile(fileUrl) {
+            window.open(fileUrl, '_blank');
         }
 
         function removeFile(index) {
@@ -216,67 +218,25 @@
 
         // Bloco de Notas
         function saveNotes() {
-            const noteText = document.getElementById('notes').value.trim();
-            if (!noteText) {
-                alert('Por favor, escreva algo antes de salvar.');
-                return;
+            const notes = document.getElementById('notes').value;
+            localStorage.setItem('savedNotes', notes);
+            alert('Notas salvas com sucesso!');
+        }
+
+        function loadNotes() {
+            const savedNotes = localStorage.getItem('savedNotes');
+            if (savedNotes) {
+                document.getElementById('notes').value = savedNotes;
             }
-
-            const noteList = document.getElementById('notesList');
-            const noteItem = document.createElement('li');
-            noteItem.style.marginBottom = '10px';
-
-            const noteContent = document.createElement('textarea');
-            noteContent.value = noteText;
-            noteContent.rows = 3;
-            noteContent.cols = 40;
-            noteContent.style.display = 'block';
-            noteContent.setAttribute('readonly', true);
-
-            const editButton = document.createElement('button');
-            editButton.textContent = 'Editar';
-            editButton.style.marginRight = '5px';
-            editButton.onclick = function () {
-                noteContent.removeAttribute('readonly');
-                noteContent.focus();
-            };
-
-            const saveEditButton = document.createElement('button');
-            saveEditButton.textContent = 'Salvar Alteração';
-            saveEditButton.onclick = function () {
-                noteContent.setAttribute('readonly', true);
-                alert('Nota atualizada com sucesso!');
-            };
-
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Excluir';
-            deleteButton.onclick = function () {
-                noteList.removeChild(noteItem);
-            };
-
-            noteItem.appendChild(noteContent);
-            noteItem.appendChild(editButton);
-            noteItem.appendChild(saveEditButton);
-            noteItem.appendChild(deleteButton);
-            noteList.appendChild(noteItem);
-
-            document.getElementById('notes').value = '';
         }
 
         function clearNotes() {
             if (confirm('Tem certeza de que deseja excluir todas as notas?')) {
-                document.getElementById('notesList').innerHTML = '';
+                document.getElementById('notes').value = '';
+                localStorage.removeItem('savedNotes');
+                alert('Notas excluídas com sucesso.');
             }
         }
-
-        // Carregar arquivos e notas salvas ao iniciar
-        window.onload = function () {
-            try {
-                loadUploadedFiles();
-            } catch (e) {
-                console.error('Erro ao carregar arquivos:', e);
-            }
-        };
     </script>
 </body>
 </html>

@@ -1,0 +1,83 @@
+<script>
+    // Upload de arquivo
+    const maxFiles = 20;
+    let uploadedFiles = [];
+
+    // Selecionar o elemento de upload
+    const fileUploadInput = document.getElementById('fileUpload');
+    const uploadedFilesList = document.getElementById('uploadedFiles');
+
+    fileUploadInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (uploadedFiles.length >= maxFiles) {
+            alert('Você atingiu o limite máximo de 20 documentos.');
+            return;
+        }
+
+        // Ler o arquivo como Base64 para exibição futura
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const fileEntry = {
+                name: file.name,
+                content: e.target.result, // Armazena o conteúdo em Base64
+            };
+
+            uploadedFiles.push(fileEntry);
+            saveUploadedFiles();
+            displayUploadedFiles();
+        };
+        reader.readAsDataURL(file); // Ler o arquivo
+    });
+
+    function saveUploadedFiles() {
+        localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+    }
+
+    function loadUploadedFiles() {
+        const savedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+        uploadedFiles = savedFiles;
+        displayUploadedFiles();
+    }
+
+    function displayUploadedFiles() {
+        uploadedFilesList.innerHTML = ''; // Limpar lista antes de renderizar
+
+        uploadedFiles.forEach((file, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                ${file.name}
+                <div>
+                    <button onclick="openFile('${file.content}')">Abrir</button>
+                    <button onclick="removeFile(${index})">Remover</button>
+                </div>
+            `;
+            uploadedFilesList.appendChild(li);
+        });
+    }
+
+    function openFile(fileContent) {
+        const newWindow = window.open();
+        newWindow.document.write(`
+            <iframe src="${fileContent}" frameborder="0" style="width:100%; height:100%;"></iframe>
+        `);
+    }
+
+    function removeFile(index) {
+        uploadedFiles.splice(index, 1);
+        saveUploadedFiles();
+        displayUploadedFiles();
+    }
+
+    // Carregar arquivos salvos ao carregar a página
+    window.onload = function () {
+        try {
+            loadUploadedFiles();
+        } catch (error) {
+            console.error('Erro ao carregar arquivos:', error);
+            alert('Ocorreu um erro ao carregar os arquivos salvos. A lista foi redefinida.');
+            localStorage.removeItem('uploadedFiles');
+        }
+    };
+</script>

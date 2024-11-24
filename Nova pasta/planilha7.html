@@ -1,0 +1,74 @@
+<div id="noteSection">
+    <h2>Bloco de Notas</h2>
+    <textarea id="notes" rows="10" cols="50" placeholder="Escreva suas anotações aqui..."></textarea>
+    <div>
+        <button onclick="saveNotes()">Salvar Notas</button>
+        <button onclick="clearNotes()">Excluir Notas</button>
+    </div>
+    <div id="savedNotes">
+        <h3>Notas Salvas</h3>
+        <ul id="notesList" style="list-style-type: none; padding: 0;"></ul>
+    </div>
+</div>
+
+<script>
+    function saveNotes() {
+        const noteText = document.getElementById('notes').value.trim();
+        if (noteText === '') {
+            alert('Por favor, escreva algo no bloco de notas antes de salvar.');
+            return;
+        }
+
+        const noteList = document.getElementById('notesList');
+        const noteItem = document.createElement('li');
+        noteItem.style.marginBottom = '10px';
+
+        const noteContent = document.createElement('textarea');
+        noteContent.value = noteText;
+        noteContent.rows = 5;
+        noteContent.cols = 40;
+        noteContent.style.display = 'block';
+        noteContent.style.marginBottom = '5px';
+
+        const editButton = document.createElement('button');
+        editButton.innerText = 'Editar';
+        editButton.onclick = function () {
+            noteContent.removeAttribute('readonly');
+            noteContent.focus();
+        };
+
+        const saveEditButton = document.createElement('button');
+        saveEditButton.innerText = 'Salvar Alteração';
+        saveEditButton.onclick = function () {
+            noteContent.setAttribute('readonly', true);
+            alert('Nota atualizada com sucesso!');
+        };
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Excluir';
+        deleteButton.style.marginLeft = '10px';
+        deleteButton.onclick = function () {
+            if (confirm('Tem certeza de que deseja excluir esta nota?')) {
+                noteList.removeChild(noteItem);
+            }
+        };
+
+        noteContent.setAttribute('readonly', true);
+
+        noteItem.appendChild(noteContent);
+        noteItem.appendChild(editButton);
+        noteItem.appendChild(saveEditButton);
+        noteItem.appendChild(deleteButton);
+        noteList.appendChild(noteItem);
+
+        document.getElementById('notes').value = '';
+        alert('Nota salva com sucesso!');
+    }
+
+    function clearNotes() {
+        if (confirm('Tem certeza de que deseja excluir todas as notas salvas?')) {
+            document.getElementById('notesList').innerHTML = '';
+            alert('Todas as notas foram excluídas.');
+        }
+    }
+</script>

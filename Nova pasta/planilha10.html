@@ -1,0 +1,72 @@
+<div id="noteSection" style="display: flex; flex-direction: row; align-items: flex-start; gap: 20px;">
+    <div>
+        <h2>Bloco de Notas</h2>
+        <textarea id="notes" rows="10" cols="50" placeholder="Escreva suas anotações aqui..."></textarea>
+        <div>
+            <button onclick="saveNotes()">Salvar Notas</button>
+            <button onclick="clearNotes()">Excluir Todas as Notas</button>
+        </div>
+    </div>
+    <div id="savedNotes" style="flex-grow: 1;">
+        <h3>Notas Salvas</h3>
+        <ul id="notesList" style="list-style-type: none; padding: 0; max-height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; border-radius: 4px;"></ul>
+    </div>
+</div>
+
+<script>
+    function saveNotes() {
+        const noteText = document.getElementById('notes').value.trim();
+        if (!noteText) {
+            alert('Por favor, escreva algo antes de salvar.');
+            return;
+        }
+
+        const noteList = document.getElementById('notesList');
+        const noteItem = document.createElement('li');
+        noteItem.style.marginBottom = '10px';
+
+        const noteContent = document.createElement('textarea');
+        noteContent.value = noteText;
+        noteContent.rows = 3;
+        noteContent.cols = 40;
+        noteContent.style.display = 'block';
+        noteContent.setAttribute('readonly', true);
+        noteContent.style.resize = 'none';
+
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Editar';
+        editButton.style.marginRight = '5px';
+        editButton.onclick = function () {
+            noteContent.removeAttribute('readonly');
+            noteContent.focus();
+        };
+
+        const saveEditButton = document.createElement('button');
+        saveEditButton.textContent = 'Salvar Alteração';
+        saveEditButton.style.marginRight = '5px';
+        saveEditButton.onclick = function () {
+            noteContent.setAttribute('readonly', true);
+            alert('Nota atualizada com sucesso!');
+        };
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Excluir';
+        deleteButton.onclick = function () {
+            noteList.removeChild(noteItem);
+        };
+
+        noteItem.appendChild(noteContent);
+        noteItem.appendChild(editButton);
+        noteItem.appendChild(saveEditButton);
+        noteItem.appendChild(deleteButton);
+        noteList.appendChild(noteItem);
+
+        document.getElementById('notes').value = '';
+    }
+
+    function clearNotes() {
+        if (confirm('Tem certeza de que deseja excluir todas as notas?')) {
+            document.getElementById('notesList').innerHTML = '';
+        }
+    }
+</script>
