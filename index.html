@@ -17,7 +17,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            height: 100vh;
+            min-height: 100vh;
         }
         .container {
             width: 50%;
@@ -27,6 +27,7 @@
             text-align: center;
             box-sizing: border-box;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
         .form-container {
             width: 100%;
@@ -142,17 +143,17 @@
         </div>
     </div>
     
-<div class="suggestion-container" style="text-align: center; color: white; padding: 10px; background: rgba(0, 0, 0, 0.8); width: 100%; position: fixed; bottom: 10px;">
+<div class="suggestion-container" style="text-align: center; color: white; padding: 10px; background: rgba(0, 0, 0, 0.8); width: 100%; margin-top: 20px; position: relative;">
     <h3 style="margin-bottom: 5px; font-size: 1.2em;">Sugestões e Críticas</h3>
     <form action="mailto:gomberg2010@hotmail.com" method="post" enctype="text/plain" id="suggestion-form">
         <div class="form-row" style="margin-bottom: 5px;">
-            <input type="text" id="user-name" name="user-name" placeholder="Seu nome" required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 60%; margin: 0 auto; font-size: 0.9em;">
+            <input type="text" id="user-name" name="user-name" placeholder="Seu nome" required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 80%; margin: 0 auto; font-size: 0.9em;">
         </div>
         <div class="form-row" style="margin-bottom: 5px;">
-            <input type="email" id="user-email" name="user-email" placeholder="Seu e-mail" required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 60%; margin: 0 auto; font-size: 0.9em;">
+            <input type="email" id="user-email" name="user-email" placeholder="Seu e-mail" required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 80%; margin: 0 auto; font-size: 0.9em;">
         </div>
         <div class="form-row" style="margin-bottom: 5px;">
-            <textarea id="user-message" name="user-message" placeholder="Sua mensagem..." required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 60%; height: 50px; margin: 0 auto; font-size: 0.9em;"></textarea>
+            <textarea id="user-message" name="user-message" placeholder="Sua mensagem..." required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 80%; height: 50px; margin: 0 auto; font-size: 0.9em;"></textarea>
         </div>
         <button type="submit" class="button" style="background: white; color: black; padding: 5px 15px; border: none; border-radius: 5px; font-size: 0.9em;">Enviar</button>
     </form>
