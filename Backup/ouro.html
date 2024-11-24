@@ -3,59 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plano Ouro - Área Restrita</title>
+    <title>Configurações</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
+            padding: 20px;
+            background-color: #f4f4f4;
         }
-        header {
-            background-color: #ffd700;
-            color: #000;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
         }
-        header h1 {
-            margin: 0;
-            font-size: 1.8em;
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        header h2 {
-            margin: 0;
-            font-size: 1.2em;
+        form label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
         }
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
-        .nav-buttons a {
-            text-decoration: none;
-            padding: 10px 15px;
+        form button {
             background-color: #333;
             color: #fff;
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
-            font-size: 0.9em;
+            cursor: pointer;
         }
-        .nav-buttons a:hover {
+        form button:hover {
             background-color: #555;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div>
-            <h1>Plano Ouro - Área Restrita</h1>
-            <h2>Bem-vindo(a), [Nome do Cliente], à sua área exclusiva.</h2>
-        </div>
-        <div class="nav-buttons">
-            <a href="vip.html">Voltar para Área VIP</a>
-            <a href="configuracoes.html">Configurações</a>
-            <a href="logout.html">Sair</a>
-        </div>
-    </header>
+    <h1>Configurações</h1>
+    <form>
+        <label for="senha-atual">Senha Atual:</label>
+        <input type="password" id="senha-atual" placeholder="Digite sua senha atual" required>
+
+        <label for="nova-senha">Nova Senha:</label>
+        <input type="password" id="nova-senha" placeholder="Digite sua nova senha" required>
+
+        <label for="confirmar-senha">Confirmar Nova Senha:</label>
+        <input type="password" id="confirmar-senha" placeholder="Confirme sua nova senha" required>
+
+        <button type="submit">Salvar Alterações</button>
+    </form>
 </body>
 </html>
