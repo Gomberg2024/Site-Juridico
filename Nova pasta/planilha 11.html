@@ -73,6 +73,11 @@
             align-items: center;
         }
 
+        #uploadedFiles li button {
+            margin-left: 10px;
+            padding: 5px 10px;
+        }
+
         #noteSection {
             display: flex;
             flex-direction: row;
@@ -92,8 +97,8 @@
     </style>
 </head>
 <body>
-    <h1 contenteditable="true">Planilha Editável</h1>
-    <table contenteditable="true">
+    <h1>Planilha Editável</h1>
+    <table>
         <tr>
             <th>Coluna 1</th>
             <th>Coluna 2</th>
@@ -159,14 +164,14 @@
             reader.onload = function (e) {
                 const fileEntry = {
                     name: file.name,
-                    content: e.target.result,
+                    content: e.target.result, // Conteúdo em Base64
                 };
 
                 uploadedFiles.push(fileEntry);
                 saveUploadedFiles();
                 displayUploadedFiles();
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(file); // Ler o arquivo
         });
 
         function saveUploadedFiles() {
@@ -217,76 +222,59 @@
                 return;
             }
 
-            const savedNotes = JSON.parse(localStorage.getItem('savedNotes') || '[]');
-            savedNotes.push(noteText);
-            localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
-
-            displaySavedNotes();
-            document.getElementById('notes').value = '';
-        }
-
-        function displaySavedNotes() {
             const noteList = document.getElementById('notesList');
-            noteList.innerHTML = '';
+            const noteItem = document.createElement('li');
+            noteItem.style.marginBottom = '10px';
 
-            const savedNotes = JSON.parse(localStorage.getItem('savedNotes') || '[]');
-            savedNotes.forEach((note, index) => {
-                const noteItem = document.createElement('li');
-                noteItem.style.marginBottom = '10px';
+            const noteContent = document.createElement('textarea');
+            noteContent.value = noteText;
+            noteContent.rows = 3;
+            noteContent.cols = 40;
+            noteContent.style.display = 'block';
+            noteContent.setAttribute('readonly', true);
 
-                const noteContent = document.createElement('textarea');
-                noteContent.value = note;
-                noteContent.rows = 3;
-                noteContent.cols = 40;
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Editar';
+            editButton.style.marginRight = '5px';
+            editButton.onclick = function () {
+                noteContent.removeAttribute('readonly');
+                noteContent.focus();
+            };
+
+            const saveEditButton = document.createElement('button');
+            saveEditButton.textContent = 'Salvar Alteração';
+            saveEditButton.onclick = function () {
                 noteContent.setAttribute('readonly', true);
+                alert('Nota atualizada com sucesso!');
+            };
 
-                const editButton = document.createElement('button');
-                editButton.textContent = 'Editar';
-                editButton.style.marginRight = '5px';
-                editButton.onclick = function () {
-                    noteContent.removeAttribute('readonly');
-                    noteContent.focus();
-                };
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Excluir';
+            deleteButton.onclick = function () {
+                noteList.removeChild(noteItem);
+            };
 
-                const saveEditButton = document.createElement('button');
-                saveEditButton.textContent = 'Salvar Alteração';
-                saveEditButton.onclick = function () {
-                    noteContent.setAttribute('readonly', true);
-                    savedNotes[index] = noteContent.value;
-                    localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
-                    alert('Nota atualizada com sucesso!');
-                };
+            noteItem.appendChild(noteContent);
+            noteItem.appendChild(editButton);
+            noteItem.appendChild(saveEditButton);
+            noteItem.appendChild(deleteButton);
+            noteList.appendChild(noteItem);
 
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Excluir';
-                deleteButton.onclick = function () {
-                    savedNotes.splice(index, 1);
-                    localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
-                    displaySavedNotes();
-                };
-
-                noteItem.appendChild(noteContent);
-                noteItem.appendChild(editButton);
-                noteItem.appendChild(saveEditButton);
-                noteItem.appendChild(deleteButton);
-                noteList.appendChild(noteItem);
-            });
+            document.getElementById('notes').value = '';
         }
 
         function clearNotes() {
             if (confirm('Tem certeza de que deseja excluir todas as notas?')) {
-                localStorage.removeItem('savedNotes');
-                displaySavedNotes();
+                document.getElementById('notesList').innerHTML = '';
             }
         }
 
-        // Carregar dados ao iniciar
+        // Carregar arquivos e notas salvas ao iniciar
         window.onload = function () {
             try {
                 loadUploadedFiles();
-                displaySavedNotes();
             } catch (e) {
-                console.error('Erro ao carregar arquivos ou notas:', e);
+                console.error('Erro ao carregar arquivos:', e);
             }
         };
     </script>
