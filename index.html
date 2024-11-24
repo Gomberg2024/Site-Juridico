@@ -1,90 +1,152 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Login - Administrador</title>
+    <title>Gomberg&Associados</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('background_image_for_index.png');
+            background-size: cover;
+            background-position: center;
+            color: #333;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            height: 100vh;
-            background-color: #f5f5f5;
+            justify-content: flex-start;
+            min-height: 100vh;
         }
-
-        .login-container {
-            background-color: #fff;
+        .container {
+            width: 50%;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-
-        h1 {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
             text-align: center;
+            box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
-
-        input {
+        .form-container {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.8em;
+        }
+        .form-row input, .form-row textarea {
+            font-size: 1em;
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 5px;
+            box-sizing: border-box;
         }
-
-        button {
-            width: 100%;
+        .form-row {
+            display: flex;
+            flex-direction: column;
+        }
+        .menu, .social {
+            margin: 15px 0;
+        }
+        .button {
+            padding: 10px 20px;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 5px;
+            display: inline-block;
+        }
+        .button:hover {
+            background: #333;
+        }
+        .result-box {
+            margin-top: 20px;
             padding: 10px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            background: rgba(240, 240, 240, 0.9);
+            border-radius: 5px;
         }
-
-        button:hover {
-            background-color: #555;
-        }
-
-        .error {
-            color: red;
-            font-size: 14px;
-            margin-top: 10px;
+        .social {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>Login do Administrador</h1>
-        <form id="adminLoginForm">
-            <input type="text" id="adminUsername" placeholder="Usuário" required>
-            <input type="password" id="adminPassword" placeholder="Senha" required>
-            <button type="submit">Entrar</button>
-        </form>
-        <div id="errorMessage" class="error"></div>
+    <div class="container">
+        <h1>Gomberg&Associados</h1>
+        <h2>Bem-vindo!</h2>
+
+        <div class="form-container">
+            <p>Preencha o formulário abaixo para enviar uma mensagem ao advogado:</p>
+            <form id="user-form">
+                <div class="form-row">
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                </div>
+                <div class="form-row">
+                    <input type="tel" id="telefone" name="telefone" placeholder="(DDD) XXXXX-XXXX" required>
+                    <input type="password" id="senha" name="senha" placeholder="Senha do processo (se houver)">
+                </div>
+                <div class="form-row">
+                    <input type="text" id="processo" name="processo" placeholder="Número do processo (se houver)">
+                    <input type="text" id="forum" name="forum" placeholder="Fórum e Estado">
+                    <input type="text" id="vara" name="vara" placeholder="Vara">
+                </div>
+                <div class="form-row">
+                    <textarea id="motivo" name="motivo" placeholder="Descreva o motivo do processo..." required></textarea>
+                </div>
+                <button type="button" class="button" id="generate-message">Gerar Mensagem</button>
+            </form>
+        </div>
+
+        <div class="result-box" id="result-box" style="display: none;">
+            <h3>Mensagem Gerada:</h3>
+            <p id="result-content"></p>
+            <a id="whatsapp-button" target="_blank" class="button" style="display: none;">Enviar ao Advogado via WhatsApp</a>
+        </div>
+
+        <div class="menu">
+            <a href="sobre_nos.html" class="button">Sobre Nós</a>
+            <a href="historias.html" class="button">Histórias</a>
+            <a href="area_vip.html" class="button">Área VIP</a>
+            <a href="https://www.oabsp.org.br/upload/1885288261.pdf" target="_blank" class="button">Tabela de Honorários</a>
+        </div>
+
+        <div class="social">
+            <a href="https://www.facebook.com/profile.php?id=100085688431397" target="_blank" class="button">Facebook</a>
+            <a href="https://twitter.com/lui18179" target="_blank" class="button">Twitter</a>
+        </div>
     </div>
 
-    <script>
-        const adminLogin = "gomberg";
-        const adminPassword = "Regina12@2024";
+    
+<div class="suggestion-container" style="text-align: center; color: white; padding: 10px; background: rgba(0, 0, 0, 0.8); width: 100%; margin-top: 30px; position: relative;">
+    <h3>Sugestões e Críticas</h3>
+    <form action="mailto:gomberg2010@hotmail.com" method="post" enctype="text/plain" id="suggestion-form">
+        <div class="form-row" style="margin-bottom: 10px;">
+            <input type="text" id="user-name" name="user-name" placeholder="Seu nome" required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 70%; margin: 10px auto; font-size: 0.9em;">
+        </div>
+        <div class="form-row" style="margin-bottom: 10px;">
+            <input type="email" id="user-email" name="user-email" placeholder="Seu e-mail" required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 70%; margin: 10px auto; font-size: 0.9em;">
+        </div>
+        <div class="form-row" style="margin-bottom: 10px;">
+            <textarea id="user-message" name="user-message" placeholder="Sua mensagem..." required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 70%; height: 60px; margin: 10px auto; font-size: 0.9em;"></textarea>
+        </div>
+        <button type="submit" class="button" style="background: white; color: black; padding: 5px 20px; border: none; border-radius: 5px; font-size: 0.9em;">Enviar</button>
+    </form>
+</div>
 
-        document.getElementById('adminLoginForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const username = document.getElementById('adminUsername').value.trim();
-            const password = document.getElementById('adminPassword').value.trim();
-            const errorMessage = document.getElementById('errorMessage');
-
-            if (username === adminLogin && password === adminPassword) {
-                alert('Login realizado com sucesso!');
-                window.location.href = "admin_dashboard.html"; // Redireciona para o painel do administrador
-            } else {
-                errorMessage.textContent = "Usuário ou senha incorretos!";
-            }
-        });
-    </script>
 </body>
 </html>
