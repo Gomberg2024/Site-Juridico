@@ -1,0 +1,76 @@
+# Reverting the Area VIP main page to its original state and focusing adjustments on the "Ouro" subpage.
+
+# Code for the original state of Area VIP (example only):
+area_vip_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área VIP</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Área VIP</h1>
+    <div class="plan-section">
+        <h2>Plano Ouro</h2>
+        <p>Benefícios: Relatórios mensais, suporte prioritário, e acesso exclusivo a conteúdos jurídicos personalizados.</p>
+        <p><strong>Custo Inicial:</strong> R$ 100,00</p>
+        <a href="ouro.html" class="button">Acessar Plano Ouro</a>
+    </div>
+    <div class="plan-section">
+        <h2>Plano Diamante</h2>
+        <p>Benefícios: Relatórios quinzenais, suporte prioritário premium, consultoria jurídica exclusiva, e acompanhamento detalhado.</p>
+        <p><strong>Custo Inicial:</strong> R$ 200,00</p>
+        <a href="diamante.html" class="button">Acessar Plano Diamante</a>
+    </div>
+    <footer>
+        <a href="index.html">Voltar ao Início</a>
+    </footer>
+</body>
+</html>
+"""
+
+# Now working on the subpage for the "Ouro" plan
+ouro_subpage_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano Ouro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Plano Ouro</h1>
+    <p>Bem-vindo ao Plano Ouro. Aproveite seus benefícios exclusivos:</p>
+    <ul>
+        <li>Relatórios mensais personalizados</li>
+        <li>Suporte prioritário</li>
+        <li>Acesso exclusivo a conteúdos jurídicos</li>
+    </ul>
+    <h2>Área de Sugestões e Críticas</h2>
+    <form action="/submit_feedback" method="POST">
+        <label for="feedback">Sua sugestão ou dúvida:</label><br>
+        <textarea id="feedback" name="feedback" rows="5" cols="50" placeholder="Digite sua sugestão ou dúvida aqui"></textarea><br>
+        <button type="submit" class="button">Enviar</button>
+    </form>
+    <footer>
+        <a href="area_vip.html">Voltar à Área VIP</a>
+    </footer>
+</body>
+</html>
+"""
+
+# Save both files and confirm updates
+file_path_area_vip = "/mnt/data/area_vip.html"
+file_path_ouro = "/mnt/data/ouro.html"
+
+with open(file_path_area_vip, "w") as file:
+    file.write(area_vip_content)
+
+with open(file_path_ouro, "w") as file:
+    file.write(ouro_subpage_content)
+
+# Confirm paths
+file_path_area_vip, file_path_ouro
