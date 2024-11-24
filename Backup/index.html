@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gomberg&Associados</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('background_image_for_index.png');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+        }
+        .container {
+            max-width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.8em;
+        }
+        .form-row input, .form-row textarea {
+            font-size: 1.1em;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-row {
+            display: flex;
+            flex-direction: column;
+        }
+        .menu .button {
+            margin: 10px;
+        }
+        .button {
+            padding: 10px 20px;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px;
+            display: inline-block;
+        }
+        .button:hover {
+            background: #333;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(240, 240, 240, 0.9);
+            border-radius: 5px;
+        }
+        /* Responsiveness for mobile */
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            .container {
+                padding: 10px;
+            }
+            .form-row input, .form-row textarea {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gomberg&Associados</h1>
+        <h2>Bem-vindo!</h2>
+        <p>Por favor, complete o formulário abaixo para enviar ao advogado:</p>
+
+        <form id="user-form">
+            <div class="form-row">
+                <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                <input type="number" id="idade" name="idade" placeholder="Sua idade" required>
+            </div>
+            <div class="form-row">
+                <input type="tel" id="telefone" name="telefone" placeholder="(DDD) XXXXX-XXXX" required>
+                <input type="password" id="senha" name="senha" placeholder="Senha do processo (se houver)">
+            </div>
+            <div class="form-row">
+                <input type="text" id="processo" name="processo" placeholder="Número do processo (se houver)">
+                <input type="text" id="forum" name="forum" placeholder="Fórum e Estado">
+                <input type="text" id="vara" name="vara" placeholder="Vara">
+            </div>
+            <div class="form-row">
+                <textarea id="motivo" name="motivo" placeholder="Descreva o motivo do processo..." required></textarea>
+            </div>
+            <button type="button" class="button" id="generate-message">Gerar Mensagem</button>
+        </form>
+
+        <div id="result-box" class="result-box" style="display: none;">
+            <h3>Mensagem Gerada:</h3>
+            <p id="result-content"></p>
+            <a id="whatsapp-button" target="_blank" class="button">Falar com Advogado Agora via WhatsApp</a>
+        </div>
+
+        <div class="menu">
+            <a href="sobre_nos.html" class="button">Sobre Nós</a>
+            <a href="historias.html" class="button">Histórias</a>
+            <a href="https://www.oabsp.org.br/upload/1885288261.pdf" target="_blank" class="button">Tabela de Honorários da OAB</a>
+            <a href="area_vip.html" class="button">Área VIP</a>
+        </div>
+    </div>
+    <script>
+        const formFields = document.querySelectorAll("#user-form input, #user-form textarea");
+        const generateButton = document.getElementById("generate-message");
+        const resultContent = document.getElementById("result-content");
+        const resultBox = document.getElementById("result-box");
+        const whatsappButton = document.getElementById("whatsapp-button");
+
+        function checkFormCompletion() {
+            let allFilled = true;
+            formFields.forEach(function(field) {
+                if (!field.value.trim()) {
+                    allFilled = false;
+                }
+            });
+            generateButton.style.display = allFilled ? "inline-block" : "none";
+        }
+
+        formFields.forEach(function(field) {
+            field.addEventListener("input", checkFormCompletion);
+        });
+
+        generateButton.addEventListener("click", function() {
+            const nome = document.getElementById('nome').value;
+            const idade = document.getElementById('idade').value;
+            const telefone = document.getElementById('telefone').value;
+            const senha = document.getElementById('senha').value;
+            const processo = document.getElementById('processo').value;
+            const forum = document.getElementById('forum').value;
+            const vara = document.getElementById('vara').value;
+            const motivo = document.getElementById('motivo').value;
+
+            const mensagem = `
+                Senhor(a) ${nome}, de ${idade} anos, está em um processo localizado na vara ${vara || 'não especificada'} em ${forum || 'não especificado'}.
+                O motivo é: ${motivo}. 
+                Caso seja necessário, informe o número do processo: ${processo || 'Não informado'}.
+                Senha para consulta: ${senha || 'Não fornecida'}.
+                Telefone para contato: ${telefone}.
+            `;
+
+            resultContent.textContent = mensagem.trim();
+            whatsappButton.href = `https://wa.me/5511973383818?text=${encodeURIComponent(mensagem.trim())}`;
+            resultBox.style.display = "block";
+        });
+    </script>
+</body>
+</html>
