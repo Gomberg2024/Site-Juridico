@@ -80,6 +80,15 @@
             background: rgba(240, 240, 240, 0.9);
             border-radius: 5px;
         }
+        .suggestion-container {
+            text-align: center;
+            color: white;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+        }
         @media screen and (max-width: 600px) {
             .container {
                 width: 90%;
@@ -96,36 +105,6 @@
             }
         }
     </style>
-    <script>
-        function generateMessage() {
-            const nome = document.getElementById("nome").value;
-            const telefone = document.getElementById("telefone").value;
-            const senha = document.getElementById("senha").value;
-            const processo = document.getElementById("processo").value;
-            const forum = document.getElementById("forum").value;
-            const vara = document.getElementById("vara").value;
-            const motivo = document.getElementById("motivo").value;
-
-            let mensagem = "Meu nome é " + nome + ", meu número de telefone é " + telefone + ".";
-            if (senha) mensagem += " A senha do meu processo é " + senha + ".";
-            if (processo) mensagem += " O número do meu processo é " + processo + ".";
-            if (forum) mensagem += " O fórum e estado são " + forum + ".";
-            if (vara) mensagem += " A vara é " + vara + ".";
-            if (motivo) mensagem += " O motivo do processo é: " + motivo + ".";
-
-            document.getElementById("result-content").innerText = mensagem;
-            document.getElementById("result-box").style.display = "block";
-            document.getElementById("whatsapp-button").style.display = "inline-block";
-            document.getElementById("whatsapp-button").href =
-                "https://wa.me/5511999999999?text=" + encodeURIComponent(mensagem);
-        }
-
-        function toggleGenerateButton() {
-            const inputs = Array.from(document.querySelectorAll(".form-row input, .form-row textarea"));
-            const hasValue = inputs.some(input => input.value.trim() !== "");
-            document.getElementById("generate-message").disabled = !hasValue;
-        }
-    </script>
 </head>
 <body>
     <div class="container">
@@ -134,7 +113,7 @@
 
         <div class="form-container">
             <p>Preencha o formulário abaixo para enviar uma mensagem ao advogado:</p>
-            <form id="user-form" oninput="toggleGenerateButton()">
+            <form id="user-form">
                 <div class="form-row">
                     <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
                 </div>
@@ -150,7 +129,7 @@
                 <div class="form-row">
                     <textarea id="motivo" name="motivo" placeholder="Descreva o motivo do processo..." required></textarea>
                 </div>
-                <button type="button" class="button" id="generate-message" onclick="generateMessage()" disabled>Gerar Mensagem</button>
+                <button type="button" class="button" id="generate-message">Gerar Mensagem</button>
             </form>
         </div>
 
@@ -168,9 +147,25 @@
         </div>
 
         <div class="social">
-            <a href="https://facebook.com" target="_blank" class="button">Facebook</a>
-            <a href="https://twitter.com" target="_blank" class="button">Twitter</a>
+            <a href="https://www.facebook.com/profile.php?id=100085688431397" target="_blank" class="button">Facebook</a>
+            <a href="https://twitter.com/lui18179" target="_blank" class="button">Twitter</a>
         </div>
+    </div>
+
+    <div class="suggestion-container">
+        <h3>Sugestões e Críticas</h3>
+        <form action="mailto:gomberg2010@hotmail.com" method="post" enctype="text/plain" id="suggestion-form">
+            <div class="form-row" style="margin-bottom: 10px;">
+                <input type="text" id="user-name" name="user-name" placeholder="Seu nome" required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 70%; margin: 0 auto; font-size: 0.9em;">
+            </div>
+            <div class="form-row" style="margin-bottom: 10px;">
+                <input type="email" id="user-email" name="user-email" placeholder="Seu e-mail" required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 70%; margin: 0 auto; font-size: 0.9em;">
+            </div>
+            <div class="form-row" style="margin-bottom: 10px;">
+                <textarea id="user-message" name="user-message" placeholder="Sua mensagem..." required style="background: transparent; color: white; border: 1px solid white; padding: 5px; width: 70%; height: 60px; margin: 0 auto; font-size: 0.9em;"></textarea>
+            </div>
+            <button type="submit" class="button" style="background: white; color: black; padding: 5px 20px; border: none; border-radius: 5px; font-size: 0.9em;">Enviar</button>
+        </form>
     </div>
 </body>
 </html>
