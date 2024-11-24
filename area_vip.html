@@ -1,29 +1,29 @@
-# Reading the uploaded file to apply improvements and generate a link for download
-file_path = "/mnt/data/area_vip.html"
-improved_file_path = "/mnt/data/improved_area_vip.html"
-
-try:
-    with open(file_path, "r") as file:
-        area_vip_content = file.read()
-        
-    # Improving styles and ensuring proper functionality
-    improved_content = area_vip_content.replace(
-        "</style>",
-        """
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área VIP</title>
+    <style>
         body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
             background-image: url('background_image_for_index.png');
             background-size: cover;
             background-attachment: fixed;
-            font-family: 'Times New Roman', Times, serif;
             color: #333;
         }
-        a {
-            text-decoration: none;
-            color: black;
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
         }
-        a:hover {
-            color: #444;
-        }
+
         .button {
             display: inline-block;
             padding: 10px 15px;
@@ -33,23 +33,62 @@ try:
             font-weight: bold;
             text-align: center;
             margin: 10px 5px;
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
         }
+
         .button:hover {
             background: #444;
             color: white;
         }
-        </style>"""
-    )
 
-    # Saving the improved file
-    with open(improved_file_path, "w") as improved_file:
-        improved_file.write(improved_content)
+        .header {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .plan-section {
+            margin-bottom: 30px;
+        }
+
+        .plan-header {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .plan-description {
+            font-size: 16px;
+        }
+
+        .back-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">Área VIP</div>
         
-    # Compressing the improved file for download
-    zip_path = "/mnt/data/improved_area_vip.zip"
-    with zipfile.ZipFile(zip_path, "w") as zipf:
-        zipf.write(improved_file_path, "improved_area_vip.html")
-        
-    zip_path
-except Exception as e:
-    str(e)
+        <div class="plan-section">
+            <div class="plan-header">Plano Ouro</div>
+            <div class="plan-description">
+                Benefícios: Relatórios mensais, suporte prioritário, e acesso exclusivo a conteúdos jurídicos personalizados.<br>
+                <strong>Custo Inicial:</strong> R$ 100,00
+            </div>
+            <a href="ouro.html" class="button">Acessar Plano Ouro</a>
+        </div>
+
+        <div class="plan-section">
+            <div class="plan-header">Plano Diamante</div>
+            <div class="plan-description">
+                Benefícios: Relatórios quinzenais, suporte prioritário premium, consultoria jurídica exclusiva, e acompanhamento detalhado.<br>
+                <strong>Custo Inicial:</strong> R$ 200,00
+            </div>
+            <a href="diamante.html" class="button">Acessar Plano Diamante</a>
+        </div>
+
+        <a href="index.html" class="button back-button">Voltar para Página Principal</a>
+    </div>
+</body>
+</html>

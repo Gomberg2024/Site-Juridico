@@ -1,0 +1,55 @@
+# Reading the uploaded file to apply improvements and generate a link for download
+file_path = "/mnt/data/area_vip.html"
+improved_file_path = "/mnt/data/improved_area_vip.html"
+
+try:
+    with open(file_path, "r") as file:
+        area_vip_content = file.read()
+        
+    # Improving styles and ensuring proper functionality
+    improved_content = area_vip_content.replace(
+        "</style>",
+        """
+        body {
+            background-image: url('background_image_for_index.png');
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: 'Times New Roman', Times, serif;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        a:hover {
+            color: #444;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #000;
+            color: white;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 5px;
+        }
+        .button:hover {
+            background: #444;
+            color: white;
+        }
+        </style>"""
+    )
+
+    # Saving the improved file
+    with open(improved_file_path, "w") as improved_file:
+        improved_file.write(improved_content)
+        
+    # Compressing the improved file for download
+    zip_path = "/mnt/data/improved_area_vip.zip"
+    with zipfile.ZipFile(zip_path, "w") as zipf:
+        zipf.write(improved_file_path, "improved_area_vip.html")
+        
+    zip_path
+except Exception as e:
+    str(e)
