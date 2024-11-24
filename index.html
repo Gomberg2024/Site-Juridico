@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -14,15 +13,19 @@
             background-size: cover;
             background-position: center;
             color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            max-width: 100%;
-            margin: 20px auto;
+            width: 50%; /* Define metade da página */
             padding: 20px;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             text-align: center;
             box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         h1 {
             font-size: 2.5em;
@@ -67,19 +70,16 @@
             background: rgba(240, 240, 240, 0.9);
             border-radius: 5px;
         }
-        /* Responsiveness for mobile */
         @media screen and (max-width: 600px) {
+            .container {
+                width: 90%; /* Reduz tamanho em telas menores */
+                padding: 10px;
+            }
             h1 {
                 font-size: 2em;
             }
             h2 {
                 font-size: 1.5em;
-            }
-            .container {
-                padding: 10px;
-            }
-            .form-row input, .form-row textarea {
-                font-size: 1em;
             }
         }
     </style>
@@ -123,49 +123,5 @@
             <a href="area_vip.html" class="button">Área VIP</a>
         </div>
     </div>
-    <script>
-        const formFields = document.querySelectorAll("#user-form input, #user-form textarea");
-        const generateButton = document.getElementById("generate-message");
-        const resultContent = document.getElementById("result-content");
-        const resultBox = document.getElementById("result-box");
-        const whatsappButton = document.getElementById("whatsapp-button");
-
-        function checkFormCompletion() {
-            let allFilled = true;
-            formFields.forEach(function(field) {
-                if (!field.value.trim()) {
-                    allFilled = false;
-                }
-            });
-            generateButton.style.display = allFilled ? "inline-block" : "none";
-        }
-
-        formFields.forEach(function(field) {
-            field.addEventListener("input", checkFormCompletion);
-        });
-
-        generateButton.addEventListener("click", function() {
-            const nome = document.getElementById('nome').value;
-            const idade = document.getElementById('idade').value;
-            const telefone = document.getElementById('telefone').value;
-            const senha = document.getElementById('senha').value;
-            const processo = document.getElementById('processo').value;
-            const forum = document.getElementById('forum').value;
-            const vara = document.getElementById('vara').value;
-            const motivo = document.getElementById('motivo').value;
-
-            const mensagem = `
-                Senhor(a) ${nome}, de ${idade} anos, está em um processo localizado na vara ${vara || 'não especificada'} em ${forum || 'não especificado'}.
-                O motivo é: ${motivo}. 
-                Caso seja necessário, informe o número do processo: ${processo || 'Não informado'}.
-                Senha para consulta: ${senha || 'Não fornecida'}.
-                Telefone para contato: ${telefone}.
-            `;
-
-            resultContent.textContent = mensagem.trim();
-            whatsappButton.href = `https://wa.me/5511973383818?text=${encodeURIComponent(mensagem.trim())}`;
-            resultBox.style.display = "block";
-        });
-    </script>
 </body>
 </html>
