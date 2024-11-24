@@ -110,9 +110,15 @@
                 </div>
                 <div class="form-row">
                     <input type="tel" id="telefone" name="telefone" placeholder="(DDD) XXXXX-XXXX" required>
+                    <input type="password" id="senha" name="senha" placeholder="Senha do processo (se houver)">
                 </div>
                 <div class="form-row">
-                    <textarea id="motivo" name="motivo" placeholder="Descreva o motivo..." required></textarea>
+                    <input type="text" id="processo" name="processo" placeholder="Número do processo (se houver)">
+                    <input type="text" id="forum" name="forum" placeholder="Fórum e Estado">
+                    <input type="text" id="vara" name="vara" placeholder="Vara">
+                </div>
+                <div class="form-row">
+                    <textarea id="motivo" name="motivo" placeholder="Descreva o motivo do processo..." required></textarea>
                 </div>
                 <button type="button" class="button" id="generate-message">Enviar Mensagem</button>
             </form>
