@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planilha Editável</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -32,11 +35,32 @@
         button:hover {
             background-color: #555;
         }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label[for="fileUpload"] {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        label[for="fileUpload"]:hover {
+            background-color: #555;
+        }
     </style>
 </head>
-<body>
+<body contenteditable="true">
     <h1>Planilha Editável</h1>
-    <table contenteditable="true">
+    <table>
         <tr>
             <th>Coluna 1</th>
             <th>Coluna 2</th>
@@ -53,22 +77,43 @@
             <td>Dados 6</td>
         </tr>
     </table>
-    <button onclick="saveChanges()">Salvar Alterações</button>
+    <div class="button-container">
+        <label for="fileUpload">Upload de Documento</label>
+        <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.txt,.xlsx">
+        <button onclick="saveChanges()">Salvar Alterações</button>
+        <button onclick="cancelChanges()">Cancelar</button>
+    </div>
 
     <script>
+        let originalContent = document.body.innerHTML;
+
         function saveChanges() {
-            const table = document.querySelector('table').outerHTML;
-            localStorage.setItem('savedTable', table);
+            const content = document.body.innerHTML;
+            localStorage.setItem('editablePage', content);
             alert('Alterações salvas com sucesso!');
         }
 
-        // Carregar a tabela salva, se existir
-        window.onload = function() {
-            const savedTable = localStorage.getItem('savedTable');
-            if (savedTable) {
-                document.querySelector('table').outerHTML = savedTable;
+        function cancelChanges() {
+            if (confirm('Tem certeza de que deseja cancelar as alterações? Isso irá reverter para o último estado salvo.')) {
+                document.body.innerHTML = originalContent;
             }
         }
+
+        // Carregar conteúdo salvo
+        window.onload = function() {
+            const savedContent = localStorage.getItem('editablePage');
+            if (savedContent) {
+                document.body.innerHTML = savedContent;
+            }
+        }
+
+        // Upload de arquivo
+        document.getElementById('fileUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert(`Arquivo "${file.name}" carregado com sucesso.`);
+            }
+        });
     </script>
 </body>
 </html>
