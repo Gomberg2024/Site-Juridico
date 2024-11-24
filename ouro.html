@@ -1,173 +1,117 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plano Ouro - Conteúdo Exclusivo</title>
+    <title>Planilha Editável</title>
     <style>
-        /* Estilo do cabeçalho */
-        header {
-            background-color: #ffd700; /* Cor amarelo ouro */
-            color: black;
-            padding: 10px;
-            text-align: left;
+        body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        header h1 {
-            margin: 0;
-        }
-
-        header button {
-            background-color: #333;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            margin: 0 5px;
-            cursor: pointer;
-            font-size: 14px;
-            border-radius: 4px;
-        }
-
-        header button:hover {
-            background-color: #555;
-        }
-
-        /* Estilo do modal de login */
-        #loginModal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            z-index: 1000;
-            width: 300px;
-        }
-
-        #loginModal h3 {
-            margin-top: 0;
-        }
-
-        #loginModal input {
+        table {
             width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
             padding: 8px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            text-align: left;
         }
 
-        #loginModal button {
-            width: 100%;
-            padding: 10px;
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
             background-color: #333;
             color: white;
             border: none;
-            border-radius: 4px;
             cursor: pointer;
         }
 
-        #loginModal button:hover {
+        button:hover {
             background-color: #555;
         }
 
-        #loginModal .forgot-password {
-            background-color: transparent;
-            color: #007BFF;
-            border: none;
-            text-align: left;
-            padding: 0;
-            margin-top: 10px;
-            font-size: 14px;
-            cursor: pointer;
+        .button-container {
+            margin-top: 20px;
         }
 
-        #loginModal .forgot-password:hover {
-            text-decoration: underline;
-        }
-
-        /* Fundo escuro para modal */
-        #modalBackground {
+        input[type="file"] {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+        }
+
+        label[for="fileUpload"] {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        label[for="fileUpload"]:hover {
+            background-color: #555;
         }
     </style>
 </head>
-<body>
-    <header>
-        <h1>Plano Ouro - Conteúdo Exclusivo</h1>
-        <div>
-            <button onclick="alert('Voltando para a Área VIP')">Voltar para Área VIP</button>
-            <button onclick="showLoginModal()">Login e Senha</button>
-            <button onclick="alert('Você saiu com sucesso!')">Sair</button>
-        </div>
-    </header>
-    <main>
-        <h2>Seu Acesso Exclusivo</h2>
-        <p>Esta é a área exclusiva do Plano Ouro. Aqui você encontrará:</p>
-        <ul>
-            <li>Relatórios personalizados.</li>
-            <li>Suporte prioritário.</li>
-            <li>Conteúdos jurídicos exclusivos.</li>
-        </ul>
-    </main>
-
-    <!-- Modal de Login -->
-    <div id="modalBackground"></div>
-    <div id="loginModal">
-        <h3>Acesso Restrito</h3>
-        <form id="loginForm">
-            <label for="username">CPF:</label>
-            <input type="text" id="username" name="username" placeholder="Digite seu CPF" required>
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
-            <button type="submit">Entrar</button>
-        </form>
-        <button class="forgot-password" onclick="forgotPassword()">Esqueci minha senha</button>
-        <button onclick="closeLoginModal()">Cancelar</button>
+<body contenteditable="true">
+    <h1>Planilha Editável</h1>
+    <table>
+        <tr>
+            <th>Coluna 1</th>
+            <th>Coluna 2</th>
+            <th>Coluna 3</th>
+        </tr>
+        <tr>
+            <td>Dados 1</td>
+            <td>Dados 2</td>
+            <td>Dados 3</td>
+        </tr>
+        <tr>
+            <td>Dados 4</td>
+            <td>Dados 5</td>
+            <td>Dados 6</td>
+        </tr>
+    </table>
+    <div class="button-container">
+        <label for="fileUpload">Upload de Documento</label>
+        <input type="file" id="fileUpload" accept=".pdf,.doc,.docx,.txt,.xlsx">
+        <button onclick="saveChanges()">Salvar Alterações</button>
+        <button onclick="cancelChanges()">Cancelar</button>
     </div>
 
     <script>
-        function showLoginModal() {
-            document.getElementById('loginModal').style.display = 'block';
-            document.getElementById('modalBackground').style.display = 'block';
+        let originalContent = document.body.innerHTML;
+
+        function saveChanges() {
+            const content = document.body.innerHTML;
+            localStorage.setItem('editablePage', content);
+            alert('Alterações salvas com sucesso!');
         }
 
-        function closeLoginModal() {
-            document.getElementById('loginModal').style.display = 'none';
-            document.getElementById('modalBackground').style.display = 'none';
+        function cancelChanges() {
+            if (confirm('Tem certeza de que deseja cancelar as alterações? Isso irá reverter para o último estado salvo.')) {
+                document.body.innerHTML = originalContent;
+            }
         }
 
-        function forgotPassword() {
-            alert('Entre em contato com o suporte para redefinir sua senha.');
+        // Carregar conteúdo salvo
+        window.onload = function() {
+            const savedContent = localStorage.getItem('editablePage');
+            if (savedContent) {
+                document.body.innerHTML = savedContent;
+            }
         }
 
-        document.getElementById('loginForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const username = document.getElementById('username').value.replace(/[\.\-]/g, ''); // Remove pontos e traços do CPF
-            const password = document.getElementById('password').value;
-
-            const validUsername = '12345678900';
-            const validPassword = 'teste123';
-
-            if (username === validUsername && password === validPassword) {
-                window.location.href = 'planilha.html'; // Redirecionar para a planilha
-            } else {
-                alert('CPF ou senha incorretos. Tente novamente.');
+        // Upload de arquivo
+        document.getElementById('fileUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert(`Arquivo "${file.name}" carregado com sucesso.`);
             }
         });
     </script>
