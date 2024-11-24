@@ -3,79 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plano Ouro</title>
+    <title>Plano Ouro - Área Restrita</title>
     <style>
         body {
-            font-family: 'Times New Roman', Times, serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('background_image_for_index.png');
-            background-size: cover;
-            background-attachment: fixed;
+            background-color: #f9f9f9;
             color: #333;
         }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
+        header {
+            background-color: #ffd700;
+            color: #000;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
         }
-        p {
+        header h2 {
+            margin: 0;
             font-size: 1.2em;
-            margin-bottom: 20px;
-            line-height: 1.6;
         }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #000;
-            color: white;
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-buttons a {
             text-decoration: none;
+            padding: 10px 15px;
+            background-color: #333;
+            color: #fff;
             border-radius: 5px;
-            font-weight: bold;
-            margin-top: 20px;
+            font-size: 0.9em;
         }
-        .button:hover {
-            background: #444;
+        .nav-buttons a:hover {
+            background-color: #555;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Plano Ouro</h1>
-        <p>
-            O Plano Ouro oferece:
-            <ul>
-                <li>Relatórios mensais personalizados.</li>
-                <li>Suporte prioritário para todas as suas necessidades jurídicas.</li>
-                <li>Acesso exclusivo a conteúdos jurídicos de alta qualidade.</li>
-            </ul>
-        </p>
-        <p><strong>Investimento inicial:</strong> R$ 100,00</p>
-        <a href="area_vip.html" class="button">Voltar para a Área VIP</a>
-    </div>
+    <header>
+        <div>
+            <h1>Plano Ouro - Área Restrita</h1>
+            <h2>Bem-vindo(a), [Nome do Cliente], à sua área exclusiva.</h2>
+        </div>
+        <div class="nav-buttons">
+            <a href="vip.html">Voltar para Área VIP</a>
+            <a href="configuracoes.html">Configurações</a>
+            <a href="logout.html">Sair</a>
+        </div>
+    </header>
 </body>
 </html>
-
-<div class="suggestion-container" style="text-align: center; color: white; margin-top: 20px; padding: 20px; background: rgba(0, 0, 0, 0.8);">
-    <h3>Sugestões e Críticas</h3>
-    <p>Tem alguma dúvida, sugestão de melhoria ou crítica? Envie-nos sua opinião. Estamos sempre à disposição para atendê-lo melhor!</p>
-    <form action="mailto:gomberg2010@hotmail.com" method="post" enctype="text/plain" id="suggestion-form">
-        <div class="form-row">
-            <input type="text" id="user-name" name="user-name" placeholder="Seu nome" required style="background: transparent; color: white; border: 1px solid white; padding: 10px; width: 50%;">
-        </div>
-        <div class="form-row">
-            <input type="email" id="user-email" name="user-email" placeholder="Seu e-mail" required style="background: transparent; color: white; border: 1px solid white; padding: 10px; width: 50%;">
-        </div>
-        <div class="form-row">
-            <textarea id="user-message" name="user-message" placeholder="Digite sua sugestão ou crítica aqui..." required style="background: transparent; color: white; border: 1px solid white; padding: 10px; width: 50%; height: 100px;"></textarea>
-        </div>
-        <button type="submit" class="button" style="background: white; color: black; padding: 10px 20px; border: none; border-radius: 5px;">Enviar</button>
-    </form>
-</div>
