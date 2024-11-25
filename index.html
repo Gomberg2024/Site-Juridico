@@ -86,13 +86,13 @@
         }
         /* Login de Administrador */
         #adminLoginForm {
+            display: none;
             margin-top: 20px;
             padding: 15px;
             background: rgba(0, 0, 0, 0.8);
             color: white;
             border-radius: 10px;
             width: 50%;
-            display: flex;
             flex-direction: column;
             align-items: center;
         }
@@ -147,9 +147,22 @@
                 <div class="form-row">
                     <textarea id="motivo" name="motivo" placeholder="Descreva o motivo do processo..." required></textarea>
                 </div>
-                <button type="button" class="button" id="generate-message">Gerar Mensagem</button>
+                <button type="button" class="button" id="sendToWhatsApp">Enviar como Novo Cliente</button>
             </form>
         </div>
+
+        <!-- Botões existentes -->
+        <div class="menu">
+            <a href="#" class="button">Sobre Nós</a>
+            <a href="#" class="button">Histórias</a>
+            <a href="#" class="button">Área VIP</a>
+            <a href="#" class="button">Tabela de Honorários</a>
+            <a href="#" class="button">Facebook</a>
+            <a href="#" class="button">Twitter</a>
+        </div>
+
+        <!-- Botão para login do administrador -->
+        <button class="button" onclick="showLoginForm()">Administrador</button>
 
         <!-- Formulário de login do administrador -->
         <form id="adminLoginForm">
@@ -162,6 +175,31 @@
     </div>
 
     <script>
+        // Enviar mensagem para WhatsApp
+        document.getElementById('sendToWhatsApp').addEventListener('click', function () {
+            const nome = document.getElementById('nome').value;
+            const telefone = document.getElementById('telefone').value;
+            const processo = document.getElementById('processo').value;
+            const forum = document.getElementById('forum').value;
+            const vara = document.getElementById('vara').value;
+            const motivo = document.getElementById('motivo').value;
+
+            if (!nome || !telefone || !motivo) {
+                alert('Por favor, preencha os campos obrigatórios.');
+                return;
+            }
+
+            const message = `Novo cliente:\nNome: ${nome}\nTelefone: ${telefone}\nProcesso: ${processo || 'N/A'}\nFórum: ${forum || 'N/A'}\nVara: ${vara || 'N/A'}\nMotivo: ${motivo}`;
+            const whatsappURL = `https://wa.me/5511973383818?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        });
+
+        // Mostrar formulário de login do administrador
+        function showLoginForm() {
+            const loginForm = document.getElementById('adminLoginForm');
+            loginForm.style.display = 'flex';
+        }
+
         // Login de Administrador
         const adminLogin = "gomberg";
         const adminPassword = "Regina12@2024";
