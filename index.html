@@ -75,19 +75,14 @@
         .button:hover {
             background: #333;
         }
-        .error {
-            color: red;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-        /* Ocultar o formulário de login inicialmente */
         #adminLoginForm {
             display: none;
-            padding: 20px;
+            margin-top: 20px;
+            padding: 15px;
             background: rgba(0, 0, 0, 0.8);
             color: white;
             border-radius: 10px;
-            width: 300px;
+            width: 50%;
             flex-direction: column;
             align-items: center;
         }
@@ -144,12 +139,10 @@
 
         <!-- Botões existentes -->
         <div class="menu">
-            <a href="#" class="button">Sobre Nós</a>
-            <a href="#" class="button">Histórias</a>
-            <a href="#" class="button">Área VIP</a>
-            <a href="#" class="button">Tabela de Honorários</a>
-            <a href="#" class="button">Facebook</a>
-            <a href="#" class="button">Twitter</a>
+            <a href="sobre_nos.html" class="button">Sobre Nós</a>
+            <a href="historias.html" class="button">Histórias</a>
+            <a href="area_vip.html" class="button">Área VIP</a>
+            <a href="https://www.oabsp.org.br/upload/1885288261.pdf" target="_blank" class="button">Tabela de Honorários</a>
         </div>
 
         <!-- Botão para login do administrador -->
@@ -166,7 +159,7 @@
     </div>
 
     <script>
-        // Mostrar formulário de login apenas quando clicar no botão "Administrador"
+        // Mostrar formulário de login apenas ao clicar no botão "Administrador"
         function showLoginForm() {
             document.getElementById('adminLoginForm').style.display = 'block';
         }
