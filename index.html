@@ -1,5 +1,4 @@
-
-      <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -107,35 +106,6 @@
         #adminLoginForm button:hover {
             background: #ccc;
         }
-        .feedback {
-            width: 100%;
-            padding: 20px;
-            background: #333;
-            color: white;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .feedback input, .feedback textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
-        .feedback button {
-            background: white;
-            color: black;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .feedback button:hover {
-            background: #ccc;
-        }
     </style>
 </head>
 <body>
@@ -172,6 +142,8 @@
             <a href="historias.html" class="button">Histórias</a>
             <a href="area_vip.html" class="button">Área VIP</a>
             <a href="https://www.oabsp.org.br/upload/1885288261.pdf" target="_blank" class="button">Tabela de Honorários</a>
+            <a href="https://www.facebook.com" target="_blank" class="button">Facebook</a>
+            <a href="https://www.twitter.com" target="_blank" class="button">Twitter</a>
         </div>
 
         <!-- Botão para login do administrador -->
@@ -185,17 +157,6 @@
             <button type="button" onclick="loginAdmin()">Entrar</button>
             <div id="errorMessage" class="error"></div>
         </div>
-    </div>
-
-    <!-- Sugestões e Críticas -->
-    <div class="feedback">
-        <h2>Sugestões e Críticas</h2>
-        <form id="feedbackForm">
-            <input type="text" id="feedbackNome" placeholder="Seu nome" required>
-            <input type="email" id="feedbackEmail" placeholder="Seu e-mail" required>
-            <textarea id="feedbackMensagem" placeholder="Sua mensagem..." rows="4" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
     </div>
 
     <script>
@@ -232,4 +193,30 @@
                 },
                 body: JSON.stringify({
                     to: 'gomberg2010@hotmail.com',
-                    subject: 'Novo Cliente - Gom
+                    subject: 'Novo Cliente - Gomberg&Associados',
+                    message: message,
+                }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Mensagem enviada com sucesso para o WhatsApp e e-mail!');
+                    } else {
+                        alert('Erro ao enviar mensagem para o e-mail, mas enviada ao WhatsApp!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao enviar e-mail:', error);
+                    alert('Erro ao enviar mensagem para o e-mail, mas enviada ao WhatsApp!');
+                });
+        });
+
+        // Função de login do administrador
+        function loginAdmin() {
+            const username = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('adminPassword').value.trim();
+
+            if (username === "gomberg" && password === "Regina12@2024") {
+                alert('Login realizado com sucesso!');
+                window.location.href = "admin_dashboard.html"; // Redireciona para a página do administrador
+            } else {
+                document.getElementById('errorMessage').textContent = "Usu
