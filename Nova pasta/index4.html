@@ -58,7 +58,7 @@
             display: flex;
             flex-direction: column;
         }
-        .menu {
+        .menu, .social {
             margin: 15px 0;
         }
         .button {
@@ -75,19 +75,24 @@
         .button:hover {
             background: #333;
         }
-        .error {
-            color: red;
-            font-size: 14px;
-            margin-top: 10px;
+        .result-box {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(240, 240, 240, 0.9);
+            border-radius: 5px;
         }
-        /* Ocultar o formulário de login inicialmente */
+        .social {
+            margin-top: 20px;
+        }
+        /* Login de Administrador */
         #adminLoginForm {
-            display: none;
-            padding: 20px;
+            margin-top: 20px;
+            padding: 15px;
             background: rgba(0, 0, 0, 0.8);
             color: white;
             border-radius: 10px;
-            width: 300px;
+            width: 50%;
+            display: flex;
             flex-direction: column;
             align-items: center;
         }
@@ -111,6 +116,10 @@
         }
         #adminLoginForm button:hover {
             background: #ccc;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -138,70 +147,39 @@
                 <div class="form-row">
                     <textarea id="motivo" name="motivo" placeholder="Descreva o motivo do processo..." required></textarea>
                 </div>
-                <button type="button" class="button" id="sendToWhatsApp">Enviar como Novo Cliente</button>
+                <button type="button" class="button" id="generate-message">Gerar Mensagem</button>
             </form>
         </div>
 
-        <!-- Botões existentes -->
-        <div class="menu">
-            <a href="#" class="button">Sobre Nós</a>
-            <a href="#" class="button">Histórias</a>
-            <a href="#" class="button">Área VIP</a>
-            <a href="#" class="button">Tabela de Honorários</a>
-            <a href="#" class="button">Facebook</a>
-            <a href="#" class="button">Twitter</a>
-        </div>
-
-        <!-- Botão para login do administrador -->
-        <button class="button" onclick="showLoginForm()">Administrador</button>
-
         <!-- Formulário de login do administrador -->
-        <div id="adminLoginForm">
+        <form id="adminLoginForm">
             <h2>Acesso Administrativo</h2>
             <input type="text" id="adminUsername" placeholder="Usuário" required>
             <input type="password" id="adminPassword" placeholder="Senha" required>
-            <button type="button" onclick="loginAdmin()">Entrar</button>
+            <button type="submit">Entrar</button>
             <div id="errorMessage" class="error"></div>
-        </div>
+        </form>
     </div>
 
     <script>
-        // Mostrar formulário de login apenas quando clicar no botão "Administrador"
-        function showLoginForm() {
-            document.getElementById('adminLoginForm').style.display = 'block';
-        }
+        // Login de Administrador
+        const adminLogin = "gomberg";
+        const adminPassword = "Regina12@2024";
 
-        // Enviar mensagem para WhatsApp
-        document.getElementById('sendToWhatsApp').addEventListener('click', function () {
-            const nome = document.getElementById('nome').value;
-            const telefone = document.getElementById('telefone').value;
-            const processo = document.getElementById('processo').value;
-            const forum = document.getElementById('forum').value;
-            const vara = document.getElementById('vara').value;
-            const motivo = document.getElementById('motivo').value;
+        document.getElementById('adminLoginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
 
-            if (!nome || !telefone || !motivo) {
-                alert('Por favor, preencha os campos obrigatórios.');
-                return;
-            }
-
-            const message = `Novo cliente:\nNome: ${nome}\nTelefone: ${telefone}\nProcesso: ${processo || 'N/A'}\nFórum: ${forum || 'N/A'}\nVara: ${vara || 'N/A'}\nMotivo: ${motivo}`;
-            const whatsappURL = `https://wa.me/5511973383818?text=${encodeURIComponent(message)}`;
-            window.open(whatsappURL, '_blank');
-        });
-
-        // Função de login do administrador
-        function loginAdmin() {
             const username = document.getElementById('adminUsername').value.trim();
             const password = document.getElementById('adminPassword').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
 
-            if (username === "gomberg" && password === "Regina12@2024") {
+            if (username === adminLogin && password === adminPassword) {
                 alert('Login realizado com sucesso!');
-                window.location.href = "admin_dashboard.html"; // Redireciona para a página do administrador
+                window.location.href = "admin_dashboard.html"; // Redireciona para o painel do administrador
             } else {
-                document.getElementById('errorMessage').textContent = "Usuário ou senha incorretos!";
+                errorMessage.textContent = "Usuário ou senha incorretos!";
             }
-        }
+        });
     </script>
 </body>
 </html>
