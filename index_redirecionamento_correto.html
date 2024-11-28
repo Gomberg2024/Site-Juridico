@@ -180,27 +180,6 @@
 </div>
 
 <script>
-    // Mostrar formulário de Primeiro Acesso ao clicar no botão
-    document.getElementById('firstAccessButton').addEventListener('click', function () {
-        document.getElementById('firstAccessForm').style.display = 'block';
-        document.getElementById('access-form').style.display = 'none';
-    });
-
-    // Simular cadastro inicial
-    document.getElementById('registerButton').addEventListener('click', function () {
-        const nomeCadastro = document.getElementById('nomeCadastro').value.trim();
-        const cpfCadastro = document.getElementById('cpfCadastro').value.trim();
-        const senhaCadastro = document.getElementById('senhaCadastro').value.trim();
-
-        if (nomeCadastro && cpfCadastro && senhaCadastro) {
-            alert('Cadastro realizado com sucesso! Você pode acessar sua conta agora.');
-            document.getElementById('firstAccessForm').style.display = 'none';
-            document.getElementById('access-form').style.display = 'block';
-        } else {
-            alert('Por favor, preencha todos os campos.');
-        }
-    });
-
     // Simular login com CPF e senha
     document.getElementById('loginButton').addEventListener('click', function () {
         const cpfLogin = document.getElementById('cpfLogin').value.trim();
@@ -209,8 +188,8 @@
         // Validação de login simples (substituir por backend no futuro)
         if (cpfLogin === "1234567890" && senhaLogin === "senha") {
             alert('Login realizado com sucesso!');
-            // Redirecionar para o formulário corretamente
-            window.location.href = "./cadastro_cliente.html";
+            // Redirecionar para uma página válida dentro do mesmo site
+            window.location.href = "formulario.html"; // Página de formulário criada para testes
         } else {
             alert('CPF ou senha incorretos. Tente novamente.');
         }
@@ -266,27 +245,6 @@
     </div>
 
     <script>
-    // Mostrar formulário de Primeiro Acesso ao clicar no botão
-    document.getElementById('firstAccessButton').addEventListener('click', function () {
-        document.getElementById('firstAccessForm').style.display = 'block';
-        document.getElementById('access-form').style.display = 'none';
-    });
-
-    // Simular cadastro inicial
-    document.getElementById('registerButton').addEventListener('click', function () {
-        const nomeCadastro = document.getElementById('nomeCadastro').value.trim();
-        const cpfCadastro = document.getElementById('cpfCadastro').value.trim();
-        const senhaCadastro = document.getElementById('senhaCadastro').value.trim();
-
-        if (nomeCadastro && cpfCadastro && senhaCadastro) {
-            alert('Cadastro realizado com sucesso! Você pode acessar sua conta agora.');
-            document.getElementById('firstAccessForm').style.display = 'none';
-            document.getElementById('access-form').style.display = 'block';
-        } else {
-            alert('Por favor, preencha todos os campos.');
-        }
-    });
-
     // Simular login com CPF e senha
     document.getElementById('loginButton').addEventListener('click', function () {
         const cpfLogin = document.getElementById('cpfLogin').value.trim();
@@ -295,8 +253,8 @@
         // Validação de login simples (substituir por backend no futuro)
         if (cpfLogin === "1234567890" && senhaLogin === "senha") {
             alert('Login realizado com sucesso!');
-            // Redirecionar para o formulário corretamente
-            window.location.href = "./cadastro_cliente.html";
+            // Redirecionar para uma página válida dentro do mesmo site
+            window.location.href = "formulario.html"; // Página de formulário criada para testes
         } else {
             alert('CPF ou senha incorretos. Tente novamente.');
         }
