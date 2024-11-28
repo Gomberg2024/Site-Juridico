@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+      <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -132,7 +133,7 @@
                 <div class="form-row">
                     <textarea id="motivo" name="motivo" placeholder="Descreva o motivo do processo..." required></textarea>
                 </div>
-                <button type="button" class="button" id="sendToWhatsAppAndEmail">Enviar como Novo Cliente</button>
+                <button type="button" class="button" id="sendToWhatsApp">Enviar como Novo Cliente</button>
             </form>
         </div>
 
@@ -142,8 +143,6 @@
             <a href="historias.html" class="button">Histórias</a>
             <a href="area_vip.html" class="button">Área VIP</a>
             <a href="https://www.oabsp.org.br/upload/1885288261.pdf" target="_blank" class="button">Tabela de Honorários</a>
-            <a href="https://www.facebook.com/profile.php?id=100085688431397" target="_blank" class="button">Facebook</a>
-            <a href="https://twitter.com/lui8179" target="_blank" class="button">Twitter</a>
         </div>
 
         <!-- Botão para login do administrador -->
@@ -165,13 +164,13 @@
             document.getElementById('adminLoginForm').style.display = 'block';
         }
 
-        // Enviar mensagem para WhatsApp e e-mail
-        document.getElementById('sendToWhatsAppAndEmail').addEventListener('click', function () {
+        // Enviar mensagem para WhatsApp
+        document.getElementById('sendToWhatsApp').addEventListener('click', function () {
             const nome = document.getElementById('nome').value;
             const telefone = document.getElementById('telefone').value;
-            const processo = document.getElementById('processo').value || 'N/A';
-            const forum = document.getElementById('forum').value || 'N/A';
-            const vara = document.getElementById('vara').value || 'N/A';
+            const processo = document.getElementById('processo').value;
+            const forum = document.getElementById('forum').value;
+            const vara = document.getElementById('vara').value;
             const motivo = document.getElementById('motivo').value;
 
             if (!nome || !telefone || !motivo) {
@@ -179,35 +178,9 @@
                 return;
             }
 
-            const message = `Novo cliente:\nNome: ${nome}\nTelefone: ${telefone}\nProcesso: ${processo}\nFórum: ${forum}\nVara: ${vara}\nMotivo: ${motivo}`;
-
-            // Enviar para o WhatsApp
+            const message = `Novo cliente:\nNome: ${nome}\nTelefone: ${telefone}\nProcesso: ${processo || 'N/A'}\nFórum: ${forum || 'N/A'}\nVara: ${vara || 'N/A'}\nMotivo: ${motivo}`;
             const whatsappURL = `https://wa.me/5511973383818?text=${encodeURIComponent(message)}`;
             window.open(whatsappURL, '_blank');
-
-            // Enviar para o e-mail usando um serviço de backend
-            fetch('https://gomberg-backend-email-service.com/send', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    to: 'gomberg2010@hotmail.com',
-                    subject: 'Novo Cliente - Gomberg&Associados',
-                    message: message,
-                }),
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Mensagem enviada com sucesso para o WhatsApp e e-mail!');
-                    } else {
-                        alert('Erro ao enviar mensagem para o e-mail, mas enviada ao WhatsApp!');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao enviar e-mail:', error);
-                    alert('Erro ao enviar mensagem para o e-mail, mas enviada ao WhatsApp!');
-                });
         });
 
         // Função de login do administrador
@@ -219,7 +192,7 @@
                 alert('Login realizado com sucesso!');
                 window.location.href = "admin_dashboard.html"; // Redireciona para a página do administrador
             } else {
-                document.getElementById('errorMessage').textContent = "Usuário ou senha incorretos.";
+                document.getElementById('errorMessage').textContent = "Usuário ou senha incorretos!";
             }
         }
     </script>
