@@ -180,6 +180,21 @@
 </div>
 
 <script>
+    // Simular login com CPF e senha
+    document.getElementById('loginButton').addEventListener('click', function () {
+        const cpfLogin = document.getElementById('cpfLogin').value.trim();
+        const senhaLogin = document.getElementById('senhaLogin').value.trim();
+
+        // Validação de login simples (substituir por backend no futuro)
+        if (cpfLogin === "1234567890" && senhaLogin === "senha") {
+            alert('Login realizado com sucesso!');
+            // Redirecionar para o formulário corretamente
+            window.location.href = "./cadastro_cliente.html"; // Ajustado para o arquivo correto
+        } else {
+            alert('CPF ou senha incorretos. Tente novamente.');
+        }
+    });
+</script>
     // Mostrar formulário de Primeiro Acesso ao clicar no botão
     document.getElementById('firstAccessButton').addEventListener('click', function () {
         document.getElementById('firstAccessForm').style.display = 'block';
@@ -230,6 +245,21 @@
     </div>
 
     <script>
+    // Simular login com CPF e senha
+    document.getElementById('loginButton').addEventListener('click', function () {
+        const cpfLogin = document.getElementById('cpfLogin').value.trim();
+        const senhaLogin = document.getElementById('senhaLogin').value.trim();
+
+        // Validação de login simples (substituir por backend no futuro)
+        if (cpfLogin === "1234567890" && senhaLogin === "senha") {
+            alert('Login realizado com sucesso!');
+            // Redirecionar para o formulário corretamente
+            window.location.href = "./cadastro_cliente.html"; // Ajustado para o arquivo correto
+        } else {
+            alert('CPF ou senha incorretos. Tente novamente.');
+        }
+    });
+</script>
         // Mostrar formulário de login apenas ao clicar no botão "Administrador"
         function showLoginForm() {
             document.getElementById('adminLoginForm').style.display = 'block';
