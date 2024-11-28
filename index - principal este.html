@@ -146,91 +146,7 @@
             <a href="https://twitter.com/lui8179" target="_blank" class="button">Twitter</a>
         </div>
 
-        
-<!-- Seção para Login ou Primeiro Acesso -->
-<div class="form-container">
-    <h2>Acesse sua Conta</h2>
-    <form id="access-form">
-        <div class="form-row">
-            <input type="text" id="cpfLogin" name="cpfLogin" placeholder="CPF (somente números)" required>
-        </div>
-        <div class="form-row">
-            <input type="password" id="senhaLogin" name="senhaLogin" placeholder="Senha" required>
-        </div>
-        <button type="button" class="button" id="loginButton">Entrar</button>
-        <button type="button" class="button" id="firstAccessButton">Primeiro Acesso</button>
-    </form>
-</div>
-
-<!-- Formulário de Primeiro Acesso -->
-<div class="form-container" id="firstAccessForm" style="display: none;">
-    <h2>Primeiro Acesso - Cadastro Inicial</h2>
-    <form id="first-access-form">
-        <div class="form-row">
-            <input type="text" id="nomeCadastro" name="nomeCadastro" placeholder="Nome Completo" required>
-        </div>
-        <div class="form-row">
-            <input type="text" id="cpfCadastro" name="cpfCadastro" placeholder="CPF (somente números)" required>
-        </div>
-        <div class="form-row">
-            <input type="password" id="senhaCadastro" name="senhaCadastro" placeholder="Crie uma senha" required>
-        </div>
-        <button type="button" class="button" id="registerButton">Cadastrar</button>
-    </form>
-</div>
-
-<script>
-    document.getElementById('loginButton').addEventListener('click', function () {
-        const cpfLogin = document.getElementById('cpfLogin').value.trim();
-        const senhaLogin = document.getElementById('senhaLogin').value.trim();
-
-        // Simulação de validação de login
-        if (cpfLogin === "1234567890" && senhaLogin === "senha") {
-            alert('Login realizado com sucesso!');
-            // Redirecionamento para página válida
-            window.location.href = "formulario.html"; // Certifique-se de que a página está no mesmo diretório
-        } else {
-            alert('CPF ou senha incorretos. Tente novamente.');
-        }
-    });
-</script>
-    // Mostrar formulário de Primeiro Acesso ao clicar no botão
-    document.getElementById('firstAccessButton').addEventListener('click', function () {
-        document.getElementById('firstAccessForm').style.display = 'block';
-        document.getElementById('access-form').style.display = 'none';
-    });
-
-    // Simular cadastro inicial
-    document.getElementById('registerButton').addEventListener('click', function () {
-        const nomeCadastro = document.getElementById('nomeCadastro').value.trim();
-        const cpfCadastro = document.getElementById('cpfCadastro').value.trim();
-        const senhaCadastro = document.getElementById('senhaCadastro').value.trim();
-
-        if (nomeCadastro && cpfCadastro && senhaCadastro) {
-            alert('Cadastro realizado com sucesso! Você pode acessar sua conta agora.');
-            document.getElementById('firstAccessForm').style.display = 'none';
-            document.getElementById('access-form').style.display = 'block';
-        } else {
-            alert('Por favor, preencha todos os campos.');
-        }
-    });
-
-    // Simular login com CPF e senha
-    document.getElementById('loginButton').addEventListener('click', function () {
-        const cpfLogin = document.getElementById('cpfLogin').value.trim();
-        const senhaLogin = document.getElementById('senhaLogin').value.trim();
-
-        // Validação de login simples (substituir por backend no futuro)
-        if (cpfLogin === "1234567890" && senhaLogin === "senha") {
-            alert('Login realizado com sucesso!');
-            window.location.href = "formulario_cadastro.html"; // Redireciona para o formulário
-        } else {
-            alert('CPF ou senha incorretos. Tente novamente.');
-        }
-    });
-</script>
-
-<!-- Botão para login do administrador -->
+        <!-- Botão para login do administrador -->
         <button class="button" onclick="showLoginForm()">Administrador</button>
 
         <!-- Formulário de login do administrador -->
@@ -244,20 +160,6 @@
     </div>
 
     <script>
-    document.getElementById('loginButton').addEventListener('click', function () {
-        const cpfLogin = document.getElementById('cpfLogin').value.trim();
-        const senhaLogin = document.getElementById('senhaLogin').value.trim();
-
-        // Simulação de validação de login
-        if (cpfLogin === "1234567890" && senhaLogin === "senha") {
-            alert('Login realizado com sucesso!');
-            // Redirecionamento para página válida
-            window.location.href = "formulario.html"; // Certifique-se de que a página está no mesmo diretório
-        } else {
-            alert('CPF ou senha incorretos. Tente novamente.');
-        }
-    });
-</script>
         // Mostrar formulário de login apenas ao clicar no botão "Administrador"
         function showLoginForm() {
             document.getElementById('adminLoginForm').style.display = 'block';
