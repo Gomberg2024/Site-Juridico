@@ -147,40 +147,74 @@
         </div>
 
         
-<!-- Seção para Cadastro de Clientes -->
+<!-- Seção para Login ou Primeiro Acesso -->
 <div class="form-container">
-    <h2>Cadastro de Cliente</h2>
-    <form id="client-form">
+    <h2>Acesse sua Conta</h2>
+    <form id="access-form">
         <div class="form-row">
-            <select id="tipoAcesso" name="tipoAcesso" required>
-                <option value="" disabled selected>Selecione o tipo de acesso</option>
-                <option value="comum">Acesso Comum</option>
-                <option value="ouro">Acesso Ouro</option>
-                <option value="diamante">Acesso Diamante</option>
-            </select>
+            <input type="text" id="cpfLogin" name="cpfLogin" placeholder="CPF (somente números)" required>
         </div>
         <div class="form-row">
-            <input type="text" id="nomeCompleto" name="nomeCompleto" placeholder="Nome Completo" required>
+            <input type="password" id="senhaLogin" name="senhaLogin" placeholder="Senha" required>
         </div>
-        <div class="form-row">
-            <input type="text" id="rg" name="rg" placeholder="RG" required>
-            <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
-        </div>
-        <div class="form-row">
-            <input type="tel" id="telefoneCliente" name="telefoneCliente" placeholder="Telefone" required>
-        </div>
-        <div class="form-row">
-            <input type="text" id="endereco" name="endereco" placeholder="Endereço" required>
-        </div>
-        <div class="form-row">
-            <input type="email" id="email" name="email" placeholder="Email" required>
-        </div>
-        <div class="form-row">
-            <textarea id="observacoes" name="observacoes" placeholder="Observações"></textarea>
-        </div>
-        <button type="button" class="button" id="registerClient">Cadastrar Cliente</button>
+        <button type="button" class="button" id="loginButton">Entrar</button>
+        <button type="button" class="button" id="firstAccessButton">Primeiro Acesso</button>
     </form>
 </div>
+
+<!-- Formulário de Primeiro Acesso -->
+<div class="form-container" id="firstAccessForm" style="display: none;">
+    <h2>Primeiro Acesso - Cadastro Inicial</h2>
+    <form id="first-access-form">
+        <div class="form-row">
+            <input type="text" id="nomeCadastro" name="nomeCadastro" placeholder="Nome Completo" required>
+        </div>
+        <div class="form-row">
+            <input type="text" id="cpfCadastro" name="cpfCadastro" placeholder="CPF (somente números)" required>
+        </div>
+        <div class="form-row">
+            <input type="password" id="senhaCadastro" name="senhaCadastro" placeholder="Crie uma senha" required>
+        </div>
+        <button type="button" class="button" id="registerButton">Cadastrar</button>
+    </form>
+</div>
+
+<script>
+    // Mostrar formulário de Primeiro Acesso ao clicar no botão
+    document.getElementById('firstAccessButton').addEventListener('click', function () {
+        document.getElementById('firstAccessForm').style.display = 'block';
+        document.getElementById('access-form').style.display = 'none';
+    });
+
+    // Simular login com CPF e senha
+    document.getElementById('loginButton').addEventListener('click', function () {
+        const cpfLogin = document.getElementById('cpfLogin').value.trim();
+        const senhaLogin = document.getElementById('senhaLogin').value.trim();
+
+        // Validação de login simples (substituir por backend no futuro)
+        if (cpfLogin === "1234567890" && senhaLogin === "senha") {
+            alert('Login realizado com sucesso!');
+            window.location.href = "formulario_cadastro.html"; // Redireciona para o formulário
+        } else {
+            alert('CPF ou senha incorretos. Tente novamente.');
+        }
+    });
+
+    // Simular cadastro inicial
+    document.getElementById('registerButton').addEventListener('click', function () {
+        const nomeCadastro = document.getElementById('nomeCadastro').value.trim();
+        const cpfCadastro = document.getElementById('cpfCadastro').value.trim();
+        const senhaCadastro = document.getElementById('senhaCadastro').value.trim();
+
+        if (nomeCadastro && cpfCadastro && senhaCadastro) {
+            alert('Cadastro realizado com sucesso! Você pode acessar sua conta agora.');
+            document.getElementById('firstAccessForm').style.display = 'none';
+            document.getElementById('access-form').style.display = 'block';
+        } else {
+            alert('Por favor, preencha todos os campos.');
+        }
+    });
+</script>
 
 <!-- Botão para login do administrador -->
         <button class="button" onclick="showLoginForm()">Administrador</button>
