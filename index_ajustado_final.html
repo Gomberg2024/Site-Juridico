@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gomberg&Associados</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('background_image_for_index.png');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            width: 50%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            text-align: center;
+            box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .form-container {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.8em;
+        }
+        .form-row input, .form-row textarea {
+            font-size: 1em;
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-row {
+            display: flex;
+            flex-direction: column;
+        }
+        .menu {
+            margin: 15px 0;
+        }
+        .button {
+            padding: 10px 20px;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 5px;
+            display: inline-block;
+        }
+        .button:hover {
+            background: #333;
+        }
+        #adminLoginForm {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: 10px;
+            width: 50%;
+            flex-direction: column;
+            align-items: center;
+        }
+        #adminLoginForm input {
+            margin: 5px 0;
+            padding: 10px;
+            width: 90%;
+            border-radius: 5px;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+        }
+        #adminLoginForm button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #adminLoginForm button:hover {
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gomberg&Associados</h1>
+        <h2>Bem-vindo!</h2>
+
+        <!-- Formulário principal -->
+        <div class="form-container">
+            <p>Preencha o formulário abaixo para enviar uma mensagem ao advogado:</p>
+            <form id="user-form">
+                <div class="form-row">
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                </div>
+                <div class="form-row">
+                    <input type="tel" id="telefone" name="telefone" placeholder="(DDD) XXXXX-XXXX" required>
+                    <input type="password" id="senha" name="senha" placeholder="Senha do processo (se houver)">
+                </div>
+                <div class="form-row">
+                    <input type="text" id="processo" name="processo" placeholder="Número do processo (se houver)">
+                    <input type="text" id="forum" name="forum" placeholder="Fórum e Estado">
+                    <input type="text" id="vara" name="vara" placeholder="Vara">
+                </div>
+                <div class="form-row">
+                    <textarea id="motivo" name="motivo" placeholder="Descreva o motivo do processo..." required></textarea>
+                </div>
+                <button type="button" class="button" id="sendToWhatsAppAndEmail">Enviar como Novo Cliente</button>
+            </form>
+        </div>
+
+        <!-- Botões existentes -->
+        <div class="menu">
+            <a href="sobre_nos.html" class="button">Sobre Nós</a>
+            <a href="historias.html" class="button">Histórias</a>
+            <a href="area_vip.html" class="button">Área VIP</a>
+            <a href="https://www.oabsp.org.br/upload/1885288261.pdf" target="_blank" class="button">Tabela de Honorários</a>
+            <a href="https://www.facebook.com/profile.php?id=100085688431397" target="_blank" class="button">Facebook</a>
+            <a href="https://twitter.com/lui8179" target="_blank" class="button">Twitter</a>
+        </div>
+
+        
+<!-- Seção para Login ou Primeiro Acesso -->
+<div class="form-container">
+    <h2>Acesse sua Conta</h2>
+    <form id="access-form">
+        <div class="form-row">
+            <input type="text" id="cpfLogin" name="cpfLogin" placeholder="CPF (somente números)" required>
+        </div>
+        <div class="form-row">
+            <input type="password" id="senhaLogin" name="senhaLogin" placeholder="Senha" required>
+        </div>
+        <button type="button" class="button" id="loginButton">Entrar</button>
+        <button type="button" class="button" id="firstAccessButton">Primeiro Acesso</button>
+    </form>
+</div>
+
+<!-- Formulário de Primeiro Acesso -->
+<div class="form-container" id="firstAccessForm" style="display: none;">
+    <h2>Primeiro Acesso - Cadastro Inicial</h2>
+    <form id="first-access-form">
+        <div class="form-row">
+            <input type="text" id="nomeCadastro" name="nomeCadastro" placeholder="Nome Completo" required>
+        </div>
+        <div class="form-row">
+            <input type="text" id="cpfCadastro" name="cpfCadastro" placeholder="CPF (somente números)" required>
+        </div>
+        <div class="form-row">
+            <input type="password" id="senhaCadastro" name="senhaCadastro" placeholder="Crie uma senha" required>
+        </div>
+        <button type="button" class="button" id="registerButton">Cadastrar</button>
+    </form>
+</div>
+
+<script>
+    // Simular login com CPF e senha
+    document.getElementById('loginButton').addEventListener('click', function () {
+        const cpfLogin = document.getElementById('cpfLogin').value.trim();
+        const senhaLogin = document.getElementById('senhaLogin').value.trim();
+
+        // Validação de login simples (substituir por backend no futuro)
+        if (cpfLogin === "1234567890" && senhaLogin === "senha") {
+            alert('Login realizado com sucesso!');
+            // Ajustar redirecionamento para página existente
+            window.location.href = "./formulario.html"; // Página de destino ajustada
+        } else {
+            alert('CPF ou senha incorretos. Tente novamente.');
+        }
+    });
+</script>
+    // Mostrar formulário de Primeiro Acesso ao clicar no botão
+    document.getElementById('firstAccessButton').addEventListener('click', function () {
+        document.getElementById('firstAccessForm').style.display = 'block';
+        document.getElementById('access-form').style.display = 'none';
+    });
+
+    // Simular cadastro inicial
+    document.getElementById('registerButton').addEventListener('click', function () {
+        const nomeCadastro = document.getElementById('nomeCadastro').value.trim();
+        const cpfCadastro = document.getElementById('cpfCadastro').value.trim();
+        const senhaCadastro = document.getElementById('senhaCadastro').value.trim();
+
+        if (nomeCadastro && cpfCadastro && senhaCadastro) {
+            alert('Cadastro realizado com sucesso! Você pode acessar sua conta agora.');
+            document.getElementById('firstAccessForm').style.display = 'none';
+            document.getElementById('access-form').style.display = 'block';
+        } else {
+            alert('Por favor, preencha todos os campos.');
+        }
+    });
+
+    // Simular login com CPF e senha
+    document.getElementById('loginButton').addEventListener('click', function () {
+        const cpfLogin = document.getElementById('cpfLogin').value.trim();
+        const senhaLogin = document.getElementById('senhaLogin').value.trim();
+
+        // Validação de login simples (substituir por backend no futuro)
+        if (cpfLogin === "1234567890" && senhaLogin === "senha") {
+            alert('Login realizado com sucesso!');
+            window.location.href = "formulario_cadastro.html"; // Redireciona para o formulário
+        } else {
+            alert('CPF ou senha incorretos. Tente novamente.');
+        }
+    });
+</script>
+
+<!-- Botão para login do administrador -->
+        <button class="button" onclick="showLoginForm()">Administrador</button>
+
+        <!-- Formulário de login do administrador -->
+        <div id="adminLoginForm">
+            <h2>Acesso Administrativo</h2>
+            <input type="text" id="adminUsername" placeholder="Usuário" required>
+            <input type="password" id="adminPassword" placeholder="Senha" required>
+            <button type="button" onclick="loginAdmin()">Entrar</button>
+            <div id="errorMessage" class="error"></div>
+        </div>
+    </div>
+
+    <script>
+    // Simular login com CPF e senha
+    document.getElementById('loginButton').addEventListener('click', function () {
+        const cpfLogin = document.getElementById('cpfLogin').value.trim();
+        const senhaLogin = document.getElementById('senhaLogin').value.trim();
+
+        // Validação de login simples (substituir por backend no futuro)
+        if (cpfLogin === "1234567890" && senhaLogin === "senha") {
+            alert('Login realizado com sucesso!');
+            // Ajustar redirecionamento para página existente
+            window.location.href = "./formulario.html"; // Página de destino ajustada
+        } else {
+            alert('CPF ou senha incorretos. Tente novamente.');
+        }
+    });
+</script>
+        // Mostrar formulário de login apenas ao clicar no botão "Administrador"
+        function showLoginForm() {
+            document.getElementById('adminLoginForm').style.display = 'block';
+        }
+
+        // Enviar mensagem para WhatsApp e e-mail
+        document.getElementById('sendToWhatsAppAndEmail').addEventListener('click', function () {
+            const nome = document.getElementById('nome').value;
+            const telefone = document.getElementById('telefone').value;
+            const processo = document.getElementById('processo').value || 'N/A';
+            const forum = document.getElementById('forum').value || 'N/A';
+            const vara = document.getElementById('vara').value || 'N/A';
+            const motivo = document.getElementById('motivo').value;
+
+            if (!nome || !telefone || !motivo) {
+                alert('Por favor, preencha os campos obrigatórios.');
+                return;
+            }
+
+            const message = `Novo cliente:\nNome: ${nome}\nTelefone: ${telefone}\nProcesso: ${processo}\nFórum: ${forum}\nVara: ${vara}\nMotivo: ${motivo}`;
+
+            // Enviar para o WhatsApp
+            const whatsappURL = `https://wa.me/5511973383818?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+
+            // Enviar para o e-mail usando um serviço de backend
+            fetch('https://gomberg-backend-email-service.com/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    to: 'gomberg2010@hotmail.com',
+                    subject: 'Novo Cliente - Gomberg&Associados',
+                    message: message,
+                }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Mensagem enviada com sucesso para o WhatsApp e e-mail!');
+                    } else {
+                        alert('Erro ao enviar mensagem para o e-mail, mas enviada ao WhatsApp!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao enviar e-mail:', error);
+                    alert('Erro ao enviar mensagem para o e-mail, mas enviada ao WhatsApp!');
+                });
+        });
+
+        // Função de login do administrador
+        function loginAdmin() {
+            const username = document.getElementById('adminUsername').value.trim();
+            const password = document.getElementById('adminPassword').value.trim();
+
+            if (username === "gomberg" && password === "Regina12@2024") {
+                alert('Login realizado com sucesso!');
+                window.location.href = "admin_dashboard.html"; // Redireciona para a página do administrador
+            } else {
+                document.getElementById('errorMessage').textContent = "Usuário ou senha incorretos.";
+            }
+        }
+    </script>
+</body>
+</html>
