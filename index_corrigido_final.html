@@ -186,21 +186,7 @@
         document.getElementById('access-form').style.display = 'none';
     });
 
-    // Simular login com CPF e senha
-    document.getElementById('loginButton').addEventListener('click', function () {
-        const cpfLogin = document.getElementById('cpfLogin').value.trim();
-        const senhaLogin = document.getElementById('senhaLogin').value.trim();
-
-        // Validação de login simples (substituir por backend no futuro)
-        if (cpfLogin === "1234567890" && senhaLogin === "senha") {
-            alert('Login realizado com sucesso!');
-            window.location.href = "formulario_cadastro.html"; // Redireciona para o formulário
-        } else {
-            alert('CPF ou senha incorretos. Tente novamente.');
-        }
-    });
-
-    // Simular cadastro inicial
+    // Voltar para a tela de login após cadastro
     document.getElementById('registerButton').addEventListener('click', function () {
         const nomeCadastro = document.getElementById('nomeCadastro').value.trim();
         const cpfCadastro = document.getElementById('cpfCadastro').value.trim();
@@ -212,6 +198,20 @@
             document.getElementById('access-form').style.display = 'block';
         } else {
             alert('Por favor, preencha todos os campos.');
+        }
+    });
+
+    // Simular login com CPF e senha
+    document.getElementById('loginButton').addEventListener('click', function () {
+        const cpfLogin = document.getElementById('cpfLogin').value.trim();
+        const senhaLogin = document.getElementById('senhaLogin').value.trim();
+
+        // Validação de login simples (substituir por backend no futuro)
+        if (cpfLogin === "1234567890" && senhaLogin === "senha") {
+            alert('Login realizado com sucesso!');
+            window.location.href = "formulario_cadastro.html"; // Redireciona para o formulário
+        } else {
+            alert('CPF ou senha incorretos. Tente novamente.');
         }
     });
 </script>
