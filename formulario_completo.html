@@ -46,7 +46,19 @@
         <label for="telefone">Telefone:</label>
         <input type="tel" id="telefone" name="telefone" required>
         
-        <label for="endereco">Endereço:</label>
+        <label for="whatsapp">WhatsApp:</label>
+        <input type="tel" id="whatsapp" name="whatsapp">
+        
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" name="cep" required>
+        
+        <label for="cidade">Cidade:</label>
+        <input type="text" id="cidade" name="cidade" required>
+        
+        <label for="estado">Estado:</label>
+        <input type="text" id="estado" name="estado" required>
+        
+        <label for="endereco">Endereço (Rua e Número):</label>
         <input type="text" id="endereco" name="endereco" required>
         
         <label for="email">Email:</label>
@@ -68,6 +80,10 @@
                     <th>RG</th>
                     <th>CPF</th>
                     <th>Telefone</th>
+                    <th>WhatsApp</th>
+                    <th>CEP</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
                     <th>Endereço</th>
                     <th>Email</th>
                     <th>Observações</th>
@@ -92,16 +108,20 @@
             const rg = document.getElementById("rg").value;
             const cpf = document.getElementById("cpf").value;
             const telefone = document.getElementById("telefone").value;
+            const whatsapp = document.getElementById("whatsapp").value;
+            const cep = document.getElementById("cep").value;
+            const cidade = document.getElementById("cidade").value;
+            const estado = document.getElementById("estado").value;
             const endereco = document.getElementById("endereco").value;
             const email = document.getElementById("email").value;
             const observacoes = document.getElementById("observacoes").value;
 
-            if (!nome || !rg || !cpf || !telefone || !endereco || !email) {
+            if (!nome || !rg || !cpf || !telefone || !cep || !cidade || !estado || !endereco || !email) {
                 alert("Por favor, preencha todos os campos obrigatórios!");
                 return;
             }
 
-            clientes.push({ nome, rg, cpf, telefone, endereco, email, observacoes });
+            clientes.push({ nome, rg, cpf, telefone, whatsapp, cep, cidade, estado, endereco, email, observacoes });
             alert("Cliente cadastrado com sucesso!");
 
             // Limpar o formulário
@@ -112,7 +132,7 @@
             const tabela = document.getElementById("tabelaClientes");
             tabela.innerHTML = "";
 
-            clientes.forEach((cliente, index) => {
+            clientes.forEach(cliente => {
                 const row = document.createElement("tr");
 
                 Object.values(cliente).forEach(value => {
