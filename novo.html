@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plano Ouro</title>
+  <style>
+    /* Estilos gerais */
+    body { /* ... */ }
+    .container { /* ... */ }
+    .button { /* ... */ }
+    .button:hover { /* ... */ }
+  </style>
+  <script>
+    function goBack() {
+      window.location.href = 'index.html';
+    }
+
+    function handleLogin() {
+      const cpf = prompt("Digite seu CPF:");
+      const senha = prompt("Digite sua senha:");
+
+      // Lógica para validar o usuário (use seus critérios)
+      if (cpf && senha) {
+        alert("Login bem-sucedido!");
+        // Exibir informações do plano
+      } else {
+        alert("CPF ou senha incorretos!");
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Plano Ouro</h1>
+    <!-- Botões -->
+    <div class="button-group">
+      <button class="button" onclick="goBack()">Voltar</button>
+      <button class="button" onclick="handleLogin()">Acessar Plano</button>
+    </div>
+    <!-- Informações do plano após login bem-sucedido -->
+    <div id="plan-info" style="display: none;">
+      <p>Detalhes do Plano Ouro...</p>
+      <!-- Outras funcionalidades -->
+    </div>
+  </div>
+</body>
+</html>
